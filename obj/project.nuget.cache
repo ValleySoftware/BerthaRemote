@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lmulnpi4rqB/AttGzKK9x39Y++JgHpwPi0MIJZea0pnjUoWjtfuN1KTJZcXtVd9X5Ur7eF8kbxTPOCNQRr0c5w==",
+  "dgSpecHash": "+iLakmMnwiclfn0anKBjmBfaWalfQqvmfX7rtUUzmBlaRQGw2F08rPQybW7KbBsZofkW9Uy90FPk4JxUFuVyGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rlmar\\source\\repos\\TinkerTank\\BurthaRemote\\BurthaRemote.csproj",
+  "projectFilePath": "C:\\Users\\rlmar\\source\\repos\\BurthaRemote\\BurthaRemote.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rlmar\\.nuget\\packages\\microsoft.appcenter\\4.3.0\\microsoft.appcenter.4.3.0.nupkg.sha512",
     "C:\\Users\\rlmar\\.nuget\\packages\\microsoft.appcenter.analytics\\4.3.0\\microsoft.appcenter.analytics.4.3.0.nupkg.sha512",

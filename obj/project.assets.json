@@ -11606,11 +11606,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rlmar\\source\\repos\\TinkerTank\\BurthaRemote\\BurthaRemote.csproj",
+      "projectUniqueName": "C:\\Users\\rlmar\\source\\repos\\BurthaRemote\\BurthaRemote.csproj",
       "projectName": "BurthaRemote",
-      "projectPath": "C:\\Users\\rlmar\\source\\repos\\TinkerTank\\BurthaRemote\\BurthaRemote.csproj",
+      "projectPath": "C:\\Users\\rlmar\\source\\repos\\BurthaRemote\\BurthaRemote.csproj",
       "packagesPath": "C:\\Users\\rlmar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rlmar\\source\\repos\\TinkerTank\\BurthaRemote\\obj\\",
+      "outputPath": "C:\\Users\\rlmar\\source\\repos\\BurthaRemote\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

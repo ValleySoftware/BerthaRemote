@@ -73,12 +73,10 @@ namespace BurthaRemote.ViewModels
 
         public void ListAvailableBluetoothDevices()
         {
-            if (!Thinking)
-            {
                 Thinking = true;
                 // Start the Enumeration
+                bluetoothLEHelper.StopEnumeration();
                 bluetoothLEHelper.StartEnumeration();
-            }
         }
 
         public async void ConnectToBTEDevice(ObservableBluetoothLEDevice deviceToConnectTo)
@@ -114,11 +112,12 @@ namespace BurthaRemote.ViewModels
                 sendTo != null)
             {
                 IBuffer writeBuffer = null;
-
+                Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
                 writeBuffer = CryptographicBuffer.ConvertStringToBinary(
                     message,
                     BinaryStringEncoding.Utf8);
                 GattCommunicationStatus result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
+                Console.WriteLine("Attempting BLE message sent");
             }
         }
     }

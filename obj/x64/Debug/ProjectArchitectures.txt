@@ -1,1 +1,1 @@
-C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\BurthaRemote.csproj;x64
+C:\Users\rlmar\source\repos\BurthaRemote\BurthaRemote.csproj;x64

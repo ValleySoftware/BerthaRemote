@@ -10,22 +10,22 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>0111965a-31aa-4717-9047-4702e65ad8cb</PackageIdentityName>
     <PackageIdentityPublisher>CN=rlmar</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\rlmar\source\repos\BurthaRemote\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\BurthaRemote.exe">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\BurthaRemote.exe">
       <PackagePath>entrypoint\BurthaRemote.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\rlmar\.nuget\packages\microsoft.appcenter\4.3.0\lib\uap10.0\Microsoft.AppCenter.dll">
@@ -100,67 +100,67 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.19041.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\DeployedAssets\AquaPulsingCheck.json">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\DeployedAssets\AquaPulsingCheck.json">
       <PackagePath>DeployedAssets\AquaPulsingCheck.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\DeployedAssets\ArrowsChasing.json">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\DeployedAssets\ArrowsChasing.json">
       <PackagePath>DeployedAssets\ArrowsChasing.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\BurthaRemote.xr.xml">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\BurthaRemote.xr.xml">
       <PackagePath>BurthaRemote.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\ArmUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\ArmUserControl.xbf">
       <PackagePath>UserControls\ArmUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\BluetoothUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\BluetoothUserControl.xbf">
       <PackagePath>UserControls\BluetoothUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\CameraGlobalUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\CameraGlobalUserControl.xbf">
       <PackagePath>UserControls\CameraGlobalUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\PanTiltGlobalUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\PanTiltGlobalUserControl.xbf">
       <PackagePath>UserControls\PanTiltGlobalUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\MovementUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\MovementUserControl.xbf">
       <PackagePath>UserControls\MovementUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\UserControls\PanTiltIndividualUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\UserControls\PanTiltIndividualUserControl.xbf">
       <PackagePath>UserControls\PanTiltIndividualUserControl.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\Views\MainView.xbf">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\Views\MainView.xbf">
       <PackagePath>Views\MainView.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.19041.0\\redist\Debug\X64\ucrtbased.dll">
@@ -169,10 +169,10 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\TinkerTank\BurthaRemote\bin\x64\Debug\Core\BurthaRemote.exe">
+    <AppxPackagedFile Include="C:\Users\rlmar\source\repos\BurthaRemote\bin\x64\Debug\Core\BurthaRemote.exe">
       <PackagePath>BurthaRemote.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\rlmar\.nuget\packages\microsoft.ui.xaml\2.6.1\buildTransitive\..\lib\uap10.0\Microsoft.UI.Xaml.winmd">
