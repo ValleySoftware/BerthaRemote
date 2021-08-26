@@ -22,6 +22,7 @@ namespace BurthaRemote.ViewModels
         private ObservableGattDeviceService _currentService;
         private ObservableGattCharacteristics _currentCharacteristic;
         public BluetoothLEHelper bluetoothLEHelper = BluetoothLEHelper.Context;
+        private MovementViewModel _movement;
 
         public MainViewModel()
         {
@@ -69,6 +70,12 @@ namespace BurthaRemote.ViewModels
         {
             get => _currentService;
             set => SetProperty(ref _currentService, value);
+        }
+
+        public MovementViewModel Movement
+        {
+            get => _movement;
+            set => SetProperty(ref _movement, value);
         }
 
         public void ListAvailableBluetoothDevices()

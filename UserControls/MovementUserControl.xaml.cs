@@ -26,5 +26,50 @@ namespace BurthaRemote.UserControls
         {
             this.InitializeComponent();
         }
+
+        private void TurnLeft_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TurnRight_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RotateLeft_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RotateRight_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void moveForward_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MoveBackwards_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MotorPowerOn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MotorPowerOff_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
