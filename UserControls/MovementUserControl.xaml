@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mui="using:Microsoft.UI.Xaml.Controls"
     xmlns:wui="using:Windows.UI.Xaml.Controls"
-    Background="Transparent"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Background="Transparent">
 
     <Grid
         HorizontalAlignment="Stretch"
