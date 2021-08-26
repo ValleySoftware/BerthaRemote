@@ -20,11 +20,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Core;
-using BurthaRemote.ViewModels;
+using BerthaRemote.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace BurthaRemote.Views
+namespace BerthaRemote.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

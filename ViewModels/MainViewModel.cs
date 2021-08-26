@@ -14,7 +14,7 @@ using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using Buffer = Windows.Storage.Streams.Buffer;
 
-namespace BurthaRemote.ViewModels
+namespace BerthaRemote.ViewModels
 {
     public class MainViewModel : ValleyBaseViewModel
     {

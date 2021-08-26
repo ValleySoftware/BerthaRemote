@@ -1,5 +1,5 @@
-﻿using BurthaRemote.ViewModels;
-using BurthaRemote.Views;
+﻿using BerthaRemote.ViewModels;
+using BerthaRemote.Views;
 using Microsoft.AppCenter.Crashes;
 using Microsoft.Toolkit.Uwp.UI.Helpers;
 using System;
@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace BurthaRemote
+namespace BerthaRemote
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

@@ -1,4 +1,4 @@
-﻿using BurthaRemote;
+﻿using BerthaRemote;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp;
 using System;
