@@ -69,7 +69,11 @@ namespace BerthaRemote.ViewModels
         public ObservableGattDeviceService CurrentService
         {
             get => _currentService;
-            set => SetProperty(ref _currentService, value);
+            set
+            {
+                SetProperty(ref _currentService, value);
+                ConnectServices();
+            }
         }
 
         public MovementViewModel Movement
@@ -91,11 +95,11 @@ namespace BerthaRemote.ViewModels
             try
             {
                 if (deviceToConnectTo != null)
-            {
-                bluetoothLEHelper.StopEnumeration();
-                Thinking = false;
+                {
+                    bluetoothLEHelper.StopEnumeration();
+                    Thinking = false;
 
-                await deviceToConnectTo.ConnectAsync();
+                    await deviceToConnectTo.ConnectAsync();
 
                     if (deviceToConnectTo.IsConnected)
                     {
@@ -113,8 +117,27 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        public async void SendUtf8Message(ObservableGattCharacteristics sendTo, string message)
+        private void ConnectServices()
         {
+            if (CurrentService != null)
+            {
+                if (Movement == null)
+                {
+                    Movement = new MovementViewModel();
+                }
+
+                Movement.Load(
+                    CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDMove)),
+                    CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Enumerations.Constants.UUIDPower)),
+                    CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDStop))
+                    );
+            }
+        }
+
+        public static async Task<GattCommunicationStatus> SendUtf8Message(ObservableGattCharacteristics sendTo, string message)
+        {
+            GattCommunicationStatus result = GattCommunicationStatus.AccessDenied;
+
             if (!string.IsNullOrEmpty(message) &&
                 sendTo != null)
             {
@@ -123,9 +146,11 @@ namespace BerthaRemote.ViewModels
                 writeBuffer = CryptographicBuffer.ConvertStringToBinary(
                     message,
                     BinaryStringEncoding.Utf8);
-                GattCommunicationStatus result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
+                result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
                 Console.WriteLine("Attempting BLE message sent");
             }
+
+            return result;
         }
     }
 }

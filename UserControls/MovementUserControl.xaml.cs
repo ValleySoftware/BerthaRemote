@@ -29,47 +29,47 @@ namespace BerthaRemote.UserControls
 
         private void TurnLeft_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.TurnLeft);
         }
 
         private void TurnRight_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.TurnRight);
         }
 
         private void RotateLeft_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.RotateLeft);
         }
 
         private void RotateRight_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.RotateRight);
         }
 
         private void moveForward_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.Forward);
         }
 
         private void MoveBackwards_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Move(Enumerations.Direction.Backwards);
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.Stop();
         }
 
         private void MotorPowerOn_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.TogglePowerOn(true);
         }
 
         private void MotorPowerOff_Click(object sender, RoutedEventArgs e)
         {
-
+            mainViewModel.Movement.TogglePowerOn(false);
         }
     }
 }

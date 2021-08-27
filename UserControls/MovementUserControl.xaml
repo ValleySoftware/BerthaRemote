@@ -9,7 +9,7 @@
     xmlns:wui="using:Windows.UI.Xaml.Controls"
     mc:Ignorable="d" Background="Transparent">
 
-    <Grid
+    <Grid 
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
         Background="Transparent"
@@ -41,7 +41,9 @@
             <Grid.BorderBrush>
                 <RevealBorderBrush FallbackColor="Red" Color="Red" />
             </Grid.BorderBrush>
-
+            
+            <Frame IsEnabled="{x:Bind mainViewModel.Movement.IsReady, Mode=OneWay, FallbackValue=false}">
+                
             <Grid
                 Width="200"
                 Height="240"
@@ -78,6 +80,7 @@
                     VerticalAlignment="Stretch"
                     Click="TurnLeft_Click"
                     Content=""
+                    FontSize="22"
                     FontFamily="Segoe MDL2 Assets"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Turn Left (using the Right motor)." />
@@ -93,6 +96,7 @@
                     Click="moveForward_Click"
                     Content=""
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Move Forward." />
 
@@ -107,6 +111,7 @@
                     Click="TurnRight_Click"
                     Content=""
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Turn Right (using the Left motor)." />
 
@@ -122,6 +127,7 @@
                     Click="RotateLeft_Click"
                     Content=""
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Rotate Left (Stay in place by reversing the Left motor in time)." />
 
@@ -134,8 +140,9 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Click="Stop_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
+                    Content="🛑"
+                    FontFamily="Segoe UI Emogi"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Come to complete stop and lock motors to prevent rolling." />
 
@@ -150,6 +157,7 @@
                     Click="RotateRight_Click"
                     Content=""
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Rotate Right (Stay in place by reversing the Right motor in time)." />
 
@@ -163,8 +171,9 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Click="MotorPowerOn_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
+                    Content="🏎"
+                    FontFamily="Segoe UI Emogi"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Turn on the main power to motors." />
 
@@ -179,6 +188,7 @@
                     Click="MoveBackwards_Click"
                     Content=""
                     FontFamily="Segoe MDL2 Assets"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Move backwards" />
 
@@ -191,12 +201,14 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Click="MotorPowerOff_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
+                    Content="🚫"
+                    FontFamily="Segoe UI Emogi"
+                    FontSize="22"
                     Style="{ThemeResource ButtonRevealStyle}"
                     ToolTipService.ToolTip="Turn off the main power to motors." />
 
-            </Grid>
+                </Grid>
+            </Frame>
         </Grid>
     </Grid>
 </UserControl>

@@ -7,8 +7,8 @@
     <ProjectGuid>{56680346-939C-46EB-9F3E-71BD2E90F754}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BurthaRemote</RootNamespace>
-    <AssemblyName>BurthaRemote</AssemblyName>
+    <RootNamespace>BerthaRemote</RootNamespace>
+    <AssemblyName>BerthaRemote</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\Enumerations.cs" />
     <Compile Include="MVVM\ValleyBaseViewModel.cs" />
     <Compile Include="UserControls\ArmUserControl.xaml.cs">
       <DependentUpon>ArmUserControl.xaml</DependentUpon>
