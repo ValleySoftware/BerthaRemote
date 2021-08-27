@@ -181,20 +181,23 @@ namespace BerthaRemote.ViewModels
         {
             var result = false;
 
+            if (movementPowerPercent < 0 ||
+                movementPowerPercent > 100 ||
+                movementDuration.TotalMilliseconds > 999
+                )
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             try
             {
-                var payload = string.Join("-", directionToMove, movementPowerPercent, movementDuration.TotalMilliseconds);
+
+                string[] payLoadStringArray = { Convert.ToString(directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(movementDuration.TotalMilliseconds) } ;
+                var payload = string.Join("-", payLoadStringArray);
 
                 GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_movementCharacteristic, payload);
 
-                switch (sendResult)
-                {
-                    case GattCommunicationStatus.AccessDenied: result = false; break;
-                    case GattCommunicationStatus.ProtocolError: result = false; break;
-                    case GattCommunicationStatus.Success: result = true; break;
-                    case GattCommunicationStatus.Unreachable: result = false; break;
-                    default: result = false; break;
-                }
+                result = Constants.CommStatusToBool(sendResult);
             }
             catch (Exception ex)
             {

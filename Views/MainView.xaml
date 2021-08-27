@@ -27,13 +27,11 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <UserControls:BluetoothUserControl Grid.Row="1" Grid.Column="0" />
         <UserControls:MovementUserControl Grid.Row="1" Grid.Column="1" />
-        <UserControls:PanTiltGlobalUserControl Grid.Row="1" Grid.Column="2" />
-        <UserControls:CameraGlobalUserControl Grid.Row="1" Grid.Column="3" />
-        <UserControls:ArmUserControl Grid.Row="1" Grid.Column="4" />
+        <UserControls:DevicesGlobalUserControl Grid.Row="1" Grid.Column="2" />
+        <UserControls:ArmUserControl Grid.Row="1" Grid.Column="3" />
     </Grid>
 </Page>

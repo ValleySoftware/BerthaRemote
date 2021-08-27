@@ -120,6 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Base\Enumerations.cs" />
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="MVVM\ValleyBaseViewModel.cs" />
     <Compile Include="UserControls\ArmUserControl.xaml.cs">
       <DependentUpon>ArmUserControl.xaml</DependentUpon>
@@ -127,20 +128,21 @@
     <Compile Include="UserControls\BluetoothUserControl.xaml.cs">
       <DependentUpon>BluetoothUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CameraGlobalUserControl.xaml.cs">
-      <DependentUpon>CameraGlobalUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PanTiltGlobalUserControl.xaml.cs">
-      <DependentUpon>PanTiltGlobalUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\DevicesGlobalUserControl.xaml.cs">
+      <DependentUpon>DevicesGlobalUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MovementUserControl.xaml.cs">
       <DependentUpon>MovementUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PanTiltIndividualUserControl.xaml.cs">
-      <DependentUpon>PanTiltIndividualUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\DeviceSpecificUserControls\PanTiltCameraUserControl.xaml.cs">
+      <DependentUpon>PanTiltCameraUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DeviceListViewModel.cs" />
+    <Compile Include="ViewModels\BaseDeviceViewModel.cs" />
+    <Compile Include="ViewModels\IDevice.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MovementViewModel.cs" />
+    <Compile Include="ViewModels\StaticCameraDevice.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -174,11 +176,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CameraGlobalUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PanTiltGlobalUserControl.xaml">
+    <Page Include="UserControls\DevicesGlobalUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -186,7 +184,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PanTiltIndividualUserControl.xaml">
+    <Page Include="UserControls\DeviceSpecificUserControls\PanTiltCameraUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,7 +223,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

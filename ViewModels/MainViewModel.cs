@@ -23,6 +23,7 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _currentCharacteristic;
         public BluetoothLEHelper bluetoothLEHelper = BluetoothLEHelper.Context;
         private MovementViewModel _movement;
+        private DeviceListViewModel _devices = new DeviceListViewModel();
 
         public MainViewModel()
         {
@@ -76,7 +77,13 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        public MovementViewModel Movement
+        public DeviceListViewModel Devices
+        {
+            get => _devices;
+            set => SetProperty(ref _devices, value);
+        }
+
+    public MovementViewModel Movement
         {
             get => _movement;
             set => SetProperty(ref _movement, value);

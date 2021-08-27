@@ -18,11 +18,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace BerthaRemote.UserControls
 {
-    public sealed partial class CameraGlobalUserControl : UserControl
+    public sealed partial class PanTiltCameraUserControl : UserControl
     {
         MainViewModel mainViewModel => App.mainViewModel;
 
-        public CameraGlobalUserControl()
+        public PanTiltCameraUserControl()
         {
             this.InitializeComponent();
         }

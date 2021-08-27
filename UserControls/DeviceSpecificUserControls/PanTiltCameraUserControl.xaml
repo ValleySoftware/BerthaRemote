@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="BerthaRemote.UserControls.PanTiltGlobalUserControl"
+    x:Class="BerthaRemote.UserControls.PanTiltCameraUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mui="using:Microsoft.UI.Xaml.Controls"
     xmlns:wui="using:Windows.UI.Xaml.Controls"
-    mc:Ignorable="d" Background="Transparent">
+    Background="Transparent"
+    mc:Ignorable="d">
 
     <Grid
         HorizontalAlignment="Stretch"
@@ -15,7 +16,7 @@
         Background="Transparent"
         BorderThickness="0,0,2,0">
         <Grid.BorderBrush>
-            <RevealBorderBrush FallbackColor="Red" Color="Red" />
+            <RevealBorderBrush FallbackColor="White" Color="White" />
         </Grid.BorderBrush>
 
         <Grid.RowDefinitions>
@@ -30,7 +31,7 @@
             HorizontalAlignment="Stretch"
             HorizontalTextAlignment="Center"
             Style="{ThemeResource SubtitleTextBlockStyle}"
-            Text="Pan Tilt Control" />
+            Text="Pan Tilt No." />
 
         <Grid
             Grid.Row="1"
@@ -44,9 +45,31 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+
+            <wui:Button
+                x:Name="connectCamera"
+                Grid.Row="0"
+                Margin="8,24,8,8"
+                Padding="4"
+                HorizontalAlignment="Stretch"
+                Click="connectCameraOne_Click"
+                Content="Connect"
+                Style="{ThemeResource ButtonRevealStyle}" />
+            <wui:TextBox
+                x:Name="cameraIP"
+                Grid.Row="1"
+                Margin="8"
+                HorizontalAlignment="Stretch"
+                Text="10.1.1.22" />
+            <wui:WebView
+                x:Name="CameraWebView"
+                Grid.Row="2"
+                Margin="8"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
 
         </Grid>
     </Grid>
