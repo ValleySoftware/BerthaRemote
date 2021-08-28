@@ -12,6 +12,7 @@ namespace BerthaRemote.ViewModels
 {
     public class MovementViewModel : ValleyBaseViewModel
     {
+        private ObservableGattCharacteristics _advancedMovementCharacteristic;
         private ObservableGattCharacteristics _movementCharacteristic;
         private ObservableGattCharacteristics _powerCharacteristic;
         private ObservableGattCharacteristics _stopCharacteristic;
@@ -93,19 +94,21 @@ namespace BerthaRemote.ViewModels
         }
 
         public void Load(
+            ObservableGattCharacteristics advancedMovementCharacteristic,
             ObservableGattCharacteristics movementCharacteristic, 
             ObservableGattCharacteristics powerCharacteristic,
             ObservableGattCharacteristics stopCharacteristic)
         {
             IsReady = false;
 
-            if (movementCharacteristic == null ||
+            if (advancedMovementCharacteristic == null ||
+                movementCharacteristic == null ||
                 powerCharacteristic == null ||
                 stopCharacteristic == null)
             {
                 throw new NullReferenceException();
             }
-
+            _advancedMovementCharacteristic = advancedMovementCharacteristic;
             _powerCharacteristic = powerCharacteristic;
             _movementCharacteristic = movementCharacteristic;
             _stopCharacteristic = stopCharacteristic;
@@ -113,73 +116,10 @@ namespace BerthaRemote.ViewModels
             IsReady = true;
         }
 
-        public async Task<bool> Move(Direction directionToMove)
+        public async Task<string> Move(Direction directionToMove, int movementPowerPercent, TimeSpan movementDuration)
         {
-            var result = false;
-
-            try
-            {
-                result = await commonMove(directionToMove, _defaultPowerPercent, _defaultDuration);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-
-            return result;
-        }
-
-        public async Task<bool> Move(Direction directionToMove, TimeSpan movementDuration)
-        {
-            var result = false;
-
-            try
-            {
-                result = await commonMove(directionToMove, _defaultPowerPercent, movementDuration);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-
-            return result;
-        }
-
-        public async Task<bool> Move(Direction directionToMove, int movementPowerPercent)
-        {
-            var result = false;
-
-            try
-            {
-                result = await commonMove(directionToMove, movementPowerPercent, _defaultDuration);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-
-            return result;
-        }
-
-        public async Task<bool> Move(Direction directionToMove, int movementPowerPercent, TimeSpan movementDuration)
-        {
-            var result = false;
-
-            try
-            {
-                result = await commonMove(directionToMove, movementPowerPercent, movementDuration);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-
-            return result;
-        }
-
-        private async Task<bool> commonMove(Direction directionToMove, int movementPowerPercent, TimeSpan movementDuration)
-        {
-            var result = false;
+            var payload = string.Empty;
+            var sent = false;
 
             if (movementPowerPercent < 0 ||
                 movementPowerPercent > 100 ||
@@ -191,20 +131,19 @@ namespace BerthaRemote.ViewModels
 
             try
             {
+                string[] payLoadStringArray = { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(movementDuration.TotalMilliseconds) };
+                payload = string.Join("-", payLoadStringArray);
 
-                string[] payLoadStringArray = { Convert.ToString(directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(movementDuration.TotalMilliseconds) } ;
-                var payload = string.Join("-", payLoadStringArray);
+                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);
 
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_movementCharacteristic, payload);
-
-                result = Constants.CommStatusToBool(sendResult);
+                sent = Constants.CommStatusToBool(sendResult);
             }
             catch (Exception ex)
             {
-                result = false;
+                sent = false;
             }
 
-            return result;
+            return payload.Insert(0, sent.ToString() + " - ");
         }
 
     }

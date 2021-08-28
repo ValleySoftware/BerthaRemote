@@ -10,7 +10,7 @@ namespace BerthaRemote.ViewModels
 {
     public class DeviceListViewModel: ValleyBaseViewModel
     {
-        private ObservableCollection<IDevice> _items;
+        private ObservableCollection<IDevice> _items = new ObservableCollection<IDevice>();
 
         public ObservableCollection<IDevice> Items
         {

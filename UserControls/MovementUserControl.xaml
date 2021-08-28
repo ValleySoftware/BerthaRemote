@@ -43,172 +43,207 @@
             </Grid.BorderBrush>
             
             <Frame IsEnabled="{x:Bind mainViewModel.Movement.IsReady, Mode=OneWay, FallbackValue=false}">
+
+                <StackPanel >
+
+                    <wui:TextBlock
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="Movement Control" />
                 
-            <Grid
-                Width="200"
-                Height="240"
-                Margin="8"
-                VerticalAlignment="Top">
+                    <Grid
+                        Width="200"
+                        Height="200"
+                        Margin="8"
+                        VerticalAlignment="Top">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <wui:TextBlock
-                    Grid.Row="0"
-                    Grid.ColumnSpan="3"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="Movement Control" />
+                        <wui:Button
+                            x:Name="TurnLeft"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="2"
+                            Padding="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="TurnLeft_Click"
+                            Content=""
+                            FontSize="22"
+                            FontFamily="Segoe MDL2 Assets"
+                            Style="{ThemeResource ButtonRevealStyle}"
+                            ToolTipService.ToolTip="Turn Left (using the Right motor)." />
 
-                <wui:Button
-                    x:Name="TurnLeft"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="TurnLeft_Click"
-                    Content=""
-                    FontSize="22"
-                    FontFamily="Segoe MDL2 Assets"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Turn Left (using the Right motor)." />
+                        <wui:Button
+                            x:Name="moveForward"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="2"
+                            Padding="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="moveForward_Click"
+                            Content=""
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="22"
+                            Style="{ThemeResource ButtonRevealStyle}"
+                            ToolTipService.ToolTip="Move Forward." />
 
-                <wui:Button
-                    x:Name="moveForward"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="moveForward_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Move Forward." />
+                        <wui:Button
+                            x:Name="TurnRight"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="2"
+                            Padding="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Click="TurnRight_Click"
+                            Content=""
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="22"
+                            Style="{ThemeResource ButtonRevealStyle}"
+                            ToolTipService.ToolTip="Turn Right (using the Left motor)." />
+                    
 
-                <wui:Button
-                    x:Name="TurnRight"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="TurnRight_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Turn Right (using the Left motor)." />
+                        <wui:Button
+                        x:Name="RotateLeft"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="RotateLeft_Click"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Rotate Left (Stay in place by reversing the Left motor in time)." />
 
+                    <wui:Button
+                        x:Name="Stop"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="Stop_Click"
+                        Content="🛑"
+                        FontFamily="Segoe UI Emogi"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Come to complete stop and lock motors to prevent rolling." />
 
-                <wui:Button
-                    x:Name="RotateLeft"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="RotateLeft_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Rotate Left (Stay in place by reversing the Left motor in time)." />
-
-                <wui:Button
-                    x:Name="Stop"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="Stop_Click"
-                    Content="🛑"
-                    FontFamily="Segoe UI Emogi"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Come to complete stop and lock motors to prevent rolling." />
-
-                <wui:Button
-                    x:Name="RotateRight"
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="RotateRight_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Rotate Right (Stay in place by reversing the Right motor in time)." />
+                    <wui:Button
+                        x:Name="RotateRight"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="RotateRight_Click"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Rotate Right (Stay in place by reversing the Right motor in time)." />
 
 
-                <wui:Button
-                    x:Name="MotorPowerOn"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="MotorPowerOn_Click"
-                    Content="🏎"
-                    FontFamily="Segoe UI Emogi"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Turn on the main power to motors." />
+                    <wui:Button
+                        x:Name="MotorPowerOn"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="MotorPowerOn_Click"
+                        Content="🏎"
+                        FontFamily="Segoe UI Emogi"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Turn on the main power to motors." />
 
-                <wui:Button
-                    x:Name="MoveBackwards"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="MoveBackwards_Click"
-                    Content=""
-                    FontFamily="Segoe MDL2 Assets"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Move backwards" />
+                    <wui:Button
+                        x:Name="MoveBackwards"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="MoveBackwards_Click"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Move backwards" />
 
-                <wui:Button
-                    x:Name="MotorPowerOff"
-                    Grid.Row="3"
-                    Grid.Column="2"
-                    Margin="2"
-                    Padding="2"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Click="MotorPowerOff_Click"
-                    Content="🚫"
-                    FontFamily="Segoe UI Emogi"
-                    FontSize="22"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    ToolTipService.ToolTip="Turn off the main power to motors." />
+                    <wui:Button
+                        x:Name="MotorPowerOff"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="MotorPowerOff_Click"
+                        Content="🚫"
+                        FontFamily="Segoe UI Emogi"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Turn off the main power to motors." />
 
-                </Grid>
+                    </Grid>
+
+                    <mui:NumberBox 
+                        Minimum="0.25" 
+                        Maximum="10"
+                        SmallChange="0.25"
+                        Value="0.25"
+                        LargeChange="1"
+                        Header="Movement Duration"
+                        HorizontalAlignment="Stretch"
+                        SpinButtonPlacementMode="Inline"
+                        x:Name="movementDurationEdit"/>
+
+                    <mui:NumberBox 
+                        Minimum="0" 
+                        Maximum="100"
+                        SmallChange="5"
+                        Header="Power (%)"
+                        Value="75"
+                        HorizontalAlignment="Stretch"
+                        SpinButtonPlacementMode="Inline"
+                        LargeChange="10"
+                        x:Name="powerEdit"/>
+
+
+                </StackPanel>
+                
             </Frame>
+
+            <wui:TextBox 
+                IsReadOnly="true"
+                x:Name="lastMessage"
+                Grid.Row="2"
+                HorizontalAlignment="Stretch"/>
+
         </Grid>
     </Grid>
 </UserControl>

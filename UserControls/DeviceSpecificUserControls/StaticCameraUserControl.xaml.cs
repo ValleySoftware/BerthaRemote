@@ -18,12 +18,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace BerthaRemote.UserControls
 {
-    public sealed partial class PanTiltCameraUserControl : UserControl
+    public sealed partial class StaticCameraUserControl : UserControl
     {
-        MainViewModel mainViewModel => App.mainViewModel;
-        public PanTiltCameraDevice device => DataContext as PanTiltCameraDevice;
+        public StaticCameraDevice device => DataContext as StaticCameraDevice;
 
-        public PanTiltCameraUserControl()
+        public StaticCameraUserControl()
         {
             this.InitializeComponent();
             this.DataContextChanged += (s, e) => Bindings.Update();
@@ -31,7 +30,14 @@ namespace BerthaRemote.UserControls
 
         private void connectCamera_Click(object sender, RoutedEventArgs e)
         {
-            CameraWebView.Navigate(new Uri(cameraIP.Text));
+            try
+            {
+                CameraWebView.Navigate(new Uri(@"http://" + device.CameraIP));
+            }
+            catch (Exception webcamConnectEx)
+            {
+
+            }
         }
     }
 }

@@ -28,6 +28,19 @@ namespace BerthaRemote.ViewModels
         public MainViewModel()
         {
             bluetoothLEHelper.EnumerationCompleted += BluetoothLEHelper_EnumerationCompleted;
+
+            Devices.Items.Clear();
+            var staticCam = new StaticCameraDevice();
+            Devices.AddItem(staticCam);
+            string[] scp = new string[1];
+            scp[0] = "10.1.1.23";
+            staticCam.Load(Devices, DeviceType.PanTiltCamera, scp);
+
+            var panTitCam = new PanTiltCameraDevice();
+            Devices.AddItem(panTitCam);
+            string[] ptcp = new string[1];
+            ptcp[0] = "10.1.1.21";
+            staticCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
         }
 
         public async void BluetoothLEHelper_EnumerationCompleted(object sender, EventArgs e)
@@ -133,11 +146,20 @@ namespace BerthaRemote.ViewModels
                     Movement = new MovementViewModel();
                 }
 
-                Movement.Load(
-                    CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDMove)),
-                    CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Enumerations.Constants.UUIDPower)),
-                    CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDStop))
-                    );
+                try
+                {
+                    Movement.Load(
+                        CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDAdvancedMove)),
+                        CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDMove)),
+                        CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Enumerations.Constants.UUIDPower)),
+                        CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDStop))
+                        );
+                }
+                catch
+                {
+                    Movement.IsReady = false;
+                    
+                }
             }
         }
 
@@ -145,19 +167,26 @@ namespace BerthaRemote.ViewModels
         {
             GattCommunicationStatus result = GattCommunicationStatus.AccessDenied;
 
-            if (!string.IsNullOrEmpty(message) &&
-                sendTo != null)
+            try
             {
-                IBuffer writeBuffer = null;
-                Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
-                writeBuffer = CryptographicBuffer.ConvertStringToBinary(
-                    message,
-                    BinaryStringEncoding.Utf8);
-                result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
-                Console.WriteLine("Attempting BLE message sent");
+                if (!string.IsNullOrEmpty(message) &&
+                    sendTo != null)
+                {
+                    IBuffer writeBuffer = null;
+                    Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
+                    writeBuffer = CryptographicBuffer.ConvertStringToBinary(
+                        message,
+                        BinaryStringEncoding.Utf8);
+                    result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
+                    Console.WriteLine("BLE message sent");
+                }
+            }
+            catch (Exception e)
+            {
+
             }
 
-            return result;
+                return result;
         }
     }
 }

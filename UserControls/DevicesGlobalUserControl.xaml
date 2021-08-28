@@ -8,20 +8,27 @@
     xmlns:mui="using:Microsoft.UI.Xaml.Controls"
     xmlns:viewmodels="using:BerthaRemote.ViewModels"
     xmlns:wui="using:Windows.UI.Xaml.Controls"
-    Background="Transparent"
+    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <wui:DataTemplateSelector x:Key="DeviceTemplateSelector" />
+        <local:DeviceTemplateSelector x:Key="DeviceTemplateSelector" />
 
-        <DataTemplate x:Key="ManipulatorArmDataTemplate" x:DataType="viewmodels:IDevice" />
-        <DataTemplate x:Key="PanTiltBaseDataTemplate" x:DataType="viewmodels:IDevice" />
+        <DataTemplate x:Key="ManipulatorArmDataTemplate" x:DataType="viewmodels:IDevice" >
+            <local:PanTiltCameraUserControl />
+        </DataTemplate>
         <DataTemplate x:Key="PanTiltCameraDataTemplate" x:DataType="viewmodels:IDevice">
             <local:PanTiltCameraUserControl />
         </DataTemplate>
-        <DataTemplate x:Key="PanTiltDistanceDataTemplate" x:DataType="viewmodels:IDevice" />
-        <DataTemplate x:Key="StaticMountCameraDataTemplate" x:DataType="viewmodels:IDevice" />
-        <DataTemplate x:Key="TemperatureSensorDataTemplate" x:DataType="viewmodels:IDevice" />
+        <DataTemplate x:Key="PanTiltDistanceDataTemplate" x:DataType="viewmodels:IDevice" >
+            <local:PanTiltCameraUserControl />
+        </DataTemplate>
+        <DataTemplate x:Key="StaticMountCameraDataTemplate" x:DataType="viewmodels:IDevice">
+            <local:StaticCameraUserControl />
+        </DataTemplate>
+        <DataTemplate x:Key="TemperatureSensorDataTemplate" x:DataType="viewmodels:IDevice" >
+            <local:PanTiltCameraUserControl />
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid
@@ -47,11 +54,30 @@
             Style="{ThemeResource SubtitleTextBlockStyle}"
             Text="Doohickeys" />
 
-        <wui:ListView
+        <Grid
             Grid.Row="1"
+            Margin="8"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            HorizontalContentAlignment="Stretch"
-            ItemTemplateSelector="{StaticResource DeviceTemplateSelector}" />
+            BorderThickness="0,2,0,0">
+            <Grid.BorderBrush>
+                <RevealBorderBrush FallbackColor="Red" Color="Red" />
+            </Grid.BorderBrush>
+
+            <wui:ListView
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"    
+                ui:ListViewExtensions.ItemContainerStretchDirection="Both"
+
+            ItemsSource="{x:Bind mainViewModel.Devices.Items, Mode=OneWay}"
+                >
+                <wui:ListView.ItemTemplate>
+                    <DataTemplate  x:DataType="viewmodels:IDevice">
+                        <local:StaticCameraUserControl />
+                    </DataTemplate>
+                </wui:ListView.ItemTemplate>
+            </wui:ListView>
+        </Grid>
     </Grid>
 </UserControl>

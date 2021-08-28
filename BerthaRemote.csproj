@@ -122,7 +122,7 @@
     <Compile Include="Base\Enumerations.cs" />
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="MVVM\ValleyBaseViewModel.cs" />
-    <Compile Include="UserControls\ArmUserControl.xaml.cs">
+    <Compile Include="UserControls\DeviceSpecificUserControls\ArmUserControl.xaml.cs">
       <DependentUpon>ArmUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\BluetoothUserControl.xaml.cs">
@@ -130,6 +130,9 @@
     </Compile>
     <Compile Include="UserControls\DevicesGlobalUserControl.xaml.cs">
       <DependentUpon>DevicesGlobalUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DeviceSpecificUserControls\StaticCameraUserControl.xaml.cs">
+      <DependentUpon>StaticCameraUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MovementUserControl.xaml.cs">
       <DependentUpon>MovementUserControl.xaml</DependentUpon>
@@ -142,6 +145,7 @@
     <Compile Include="ViewModels\IDevice.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MovementViewModel.cs" />
+    <Compile Include="ViewModels\PanTiltCameraDevice.cs" />
     <Compile Include="ViewModels\StaticCameraDevice.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -168,7 +172,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="UserControls\ArmUserControl.xaml">
+    <Page Include="UserControls\DeviceSpecificUserControls\ArmUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DevicesGlobalUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DeviceSpecificUserControls\StaticCameraUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BerthaRemote.ViewModels
 {
-    public partial class StaticCameraDevice: BaseDeviceViewModel, IDevice
+    public partial class PanTiltCameraDevice : BaseDeviceViewModel, IDevice
     {
         private string _cameraIP;
 
-        public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters) 
+        public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
             base.Load(parentList, typeOfDevice, parameters);
 

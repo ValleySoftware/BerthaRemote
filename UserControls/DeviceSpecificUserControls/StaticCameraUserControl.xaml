@@ -1,15 +1,15 @@
 ﻿<UserControl
-    x:Class="BerthaRemote.UserControls.PanTiltCameraUserControl"
+    x:Class="BerthaRemote.UserControls.StaticCameraUserControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:BerthaRemote.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
     xmlns:mui="using:Microsoft.UI.Xaml.Controls"
     xmlns:wui="using:Windows.UI.Xaml.Controls"
-    Background="Transparent"
-    mc:Ignorable="d">
-
+    Background="Transparent">
+    
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
@@ -31,7 +31,7 @@
             HorizontalAlignment="Stretch"
             HorizontalTextAlignment="Center"
             Style="{ThemeResource SubtitleTextBlockStyle}"
-            Text="Pan Tilt No." />
+            Text="Static Camera No." />
 
         <Grid
             Grid.Row="1"
@@ -64,10 +64,12 @@
                 Margin="8"
                 HorizontalAlignment="Stretch"
                 Text="{x:Bind device.CameraIP, Mode=TwoWay}" />
-            <wui:WebView
+            <WebView
                 x:Name="CameraWebView"
                 Grid.Row="2"
                 Margin="8"
+                Width="400"
+                Height="400"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" />
 
