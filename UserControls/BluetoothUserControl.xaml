@@ -67,8 +67,10 @@
                 Margin="0,8"
                 Padding="8"
                 Header="Bluetooth Devices"
+                SelectionMode="Single"
+                IsItemClickEnabled="False"
                 ItemsSource="{x:Bind mainViewModel.bluetoothLEHelper.BluetoothLeDevices, Mode=OneWay}"
-                SelectedItem="{x:Bind mainViewModel.CurrentDevice, Mode=TwoWay}">
+                SelectedItem="{x:Bind mainViewModel.CurrentDevice, Mode=OneWay}">
                 <wui:ListView.ItemTemplate>
                     <DataTemplate x:DataType="connectivity:ObservableBluetoothLEDevice">
                         <Grid>

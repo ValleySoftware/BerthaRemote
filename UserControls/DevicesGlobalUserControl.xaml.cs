@@ -30,7 +30,7 @@ namespace BerthaRemote.UserControls
                 switch (vm.TypeOfDevice)
                 {
                     case DeviceType.ManipulatorArm : return ManipulatorArmDataTemplate; 
-                    case DeviceType.PanTiltCamera: return StaticMountCameraDataTemplate;// PanTiltCameraDataTemplate; 
+                    case DeviceType.PanTiltCamera: return PanTiltCameraDataTemplate;// PanTiltCameraDataTemplate; 
                     case DeviceType.PanTiltDistance: return PanTiltDistanceDataTemplate; 
                     case DeviceType.StaticMountCamera: return StaticMountCameraDataTemplate; 
                     case DeviceType.TemperatureSensor: return TemperatureSensorDataTemplate; 

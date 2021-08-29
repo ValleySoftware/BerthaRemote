@@ -72,7 +72,7 @@ namespace BerthaRemote.ViewModels
 
             try
             {
-                string payload = string.Empty;
+                string payload = "1";
 
                 GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_stopCharacteristic, payload);
 
@@ -106,7 +106,8 @@ namespace BerthaRemote.ViewModels
                 powerCharacteristic == null ||
                 stopCharacteristic == null)
             {
-                throw new NullReferenceException();
+                //throw new NullReferenceException();
+                return;
             }
             _advancedMovementCharacteristic = advancedMovementCharacteristic;
             _powerCharacteristic = powerCharacteristic;

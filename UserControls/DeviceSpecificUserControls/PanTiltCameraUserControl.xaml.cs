@@ -31,7 +31,13 @@ namespace BerthaRemote.UserControls
 
         private void connectCamera_Click(object sender, RoutedEventArgs e)
         {
-            CameraWebView.Navigate(new Uri(cameraIP.Text));
+            if (!string.IsNullOrEmpty(cameraIP.Text))
+            {
+                if (Uri.CheckSchemeName(cameraIP.Text))
+                {
+                    CameraWebView.Navigate(new Uri(cameraIP.Text));
+                }
+            }
         }
     }
 }

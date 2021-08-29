@@ -47,6 +47,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <wui:Button
@@ -68,8 +69,8 @@
                 x:Name="CameraWebView"
                 Grid.Row="2"
                 Margin="8"
-                Width="400"
-                Height="400"
+                Width="320"
+                Height="240"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" />
 

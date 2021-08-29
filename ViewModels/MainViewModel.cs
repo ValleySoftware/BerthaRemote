@@ -33,14 +33,14 @@ namespace BerthaRemote.ViewModels
             var staticCam = new StaticCameraDevice();
             Devices.AddItem(staticCam);
             string[] scp = new string[1];
-            scp[0] = "10.1.1.23";
-            staticCam.Load(Devices, DeviceType.PanTiltCamera, scp);
+            scp[0] = @"http://10.1.1.23";
+            staticCam.Load(Devices, DeviceType.StaticMountCamera, scp);
 
             var panTitCam = new PanTiltCameraDevice();
             Devices.AddItem(panTitCam);
             string[] ptcp = new string[1];
-            ptcp[0] = "10.1.1.21";
-            staticCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
+            ptcp[0] = @"http://10.1.1.21";
+            panTitCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
         }
 
         public async void BluetoothLEHelper_EnumerationCompleted(object sender, EventArgs e)
@@ -124,10 +124,10 @@ namespace BerthaRemote.ViewModels
                     if (deviceToConnectTo.IsConnected)
                     {
                         CurrentDevice = deviceToConnectTo;
-                        if (!deviceToConnectTo.IsPaired)
+                        /*if (!deviceToConnectTo.IsPaired)
                         {
                             await deviceToConnectTo.DoInAppPairingAsync();
-                        }
+                        }*/
                     }
                 }
             }

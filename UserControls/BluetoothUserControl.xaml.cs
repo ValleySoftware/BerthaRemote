@@ -48,6 +48,7 @@ namespace BerthaRemote.UserControls
             {
                 App.dispatcherQueue.EnqueueAsync(() =>
                 {
+                    mainViewModel.CurrentDevice = vm;
                     mainViewModel.ConnectToBTEDevice(vm);
                 });
             }

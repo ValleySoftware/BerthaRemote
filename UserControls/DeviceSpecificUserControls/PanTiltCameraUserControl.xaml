@@ -21,7 +21,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
@@ -36,8 +36,6 @@
         <Grid
             Grid.Row="1"
             Margin="8"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             BorderThickness="0,2,0,0">
             <Grid.BorderBrush>
                 <RevealBorderBrush FallbackColor="Red" Color="Red" />
@@ -47,6 +45,8 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <wui:Button
@@ -68,8 +68,94 @@
                 x:Name="CameraWebView"
                 Grid.Row="2"
                 Margin="8"
-                HorizontalAlignment="Stretch"
+                Width="320"
+                Height="240"
+                DefaultBackgroundColor="WhiteSmoke"
                 VerticalAlignment="Center" />
+            <Frame 
+                IsEnabled="{x:Bind mainViewModel.Movement.IsReady, Mode=OneWay, FallbackValue=false}"
+                Grid.Row="3">
+
+                <Grid
+                        Width="200"
+                        Height="200"
+                        Margin="8"
+                        VerticalAlignment="Top">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <wui:Button
+                            x:Name="tiltUp"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="2"
+                            Padding="2"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Content=""
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="22"
+                            Style="{ThemeResource ButtonRevealStyle}"
+                            ToolTipService.ToolTip="Tild Up." />
+
+                    <wui:Button
+                        x:Name="panLeft"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Pan Left" />
+
+                    <wui:Button
+                        x:Name="panRight"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Pan Right" />
+
+                    <wui:Button
+                        x:Name="tiltDown"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Content=""
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="down" />
+
+              
+
+                </Grid>
+            </Frame>
 
         </Grid>
     </Grid>
