@@ -9,7 +9,7 @@ namespace Enumerations
 {
     public enum ComponentStatus { Error, Ready, Action, UnInitialised };
     public enum Direction { Forward, Backwards, TurnLeft, TurnRight, RotateLeft, RotateRight }
-    public enum ServoMovementSpeed { Slow, Medium, Fast, Flank };
+    public enum ServoMovementSpeed { Slow, Medium, Fast, Flank, Stop };
 
     public class Constants
     {    
@@ -18,6 +18,7 @@ namespace Enumerations
         public const string UUIDPanTilt = @"017e99d6-8a61-11eb-8dcd-0242ac1a5102";
         public const string UUIDPower = @"017e99d6-8a61-11eb-8dcd-0242ac1a5103";
         public const string UUIDAdvancedMove = @"017e99d6-8a61-11eb-8dcd-0242ac1a5104";
+        public const string UUIDPanSweep = @"017e99d6-8a61-11eb-8dcd-0242ac1a5105";
 
         public static bool CommStatusToBool(GattCommunicationStatus statusToCheck)
         {

@@ -17,7 +17,7 @@ namespace BerthaRemote.ViewModels
             if (parameters != null &&
                 parameters.Count() > 0)
             {
-                CameraIP = parameters[0];
+                CameraIP = parameters[0].ToString();
             }
         }
 

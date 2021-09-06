@@ -39,5 +39,21 @@ namespace BerthaRemote.UserControls
                 }
             }
         }
+
+        private void tiltUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (device != null)
+            {
+                device.AutoPan(PanTiltCameraDevice.speed.stop);
+            }
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            if (device != null)
+            {
+                device.Stop();
+            }
+        }
     }
 }

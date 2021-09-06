@@ -101,6 +101,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="2"
+                        Click="tiltUp_Click"
                             Padding="2"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
@@ -123,6 +124,21 @@
                         FontSize="22"
                         Style="{ThemeResource ButtonRevealStyle}"
                         ToolTipService.ToolTip="Pan Left" />
+
+                    <wui:Button
+                        x:Name="Stop"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="2"
+                        Padding="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Click="Stop_Click"
+                        Content="🛑"
+                        FontFamily="Segoe UI Emogi"
+                        FontSize="22"
+                        Style="{ThemeResource ButtonRevealStyle}"
+                        ToolTipService.ToolTip="Stop Pan/Tilt" />
 
                     <wui:Button
                         x:Name="panRight"
