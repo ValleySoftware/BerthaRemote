@@ -213,17 +213,17 @@
                 </Grid>
             </Frame>
 
-            <mui:NumberBox 
-                        Minimum="0.25" 
-                        Maximum="10"
-                        SmallChange="0.25"
-                        Value="0.25"
-                        LargeChange="1"
-                Grid.Row="1"
-                        Header="Movement Duration"
-                        HorizontalAlignment="Stretch"
-                        SpinButtonPlacementMode="Inline"
-                        x:Name="movementDurationEdit"/>
+            <wui:Slider HorizontalAlignment="Stretch"
+                            Grid.Row="1"
+                            TickFrequency="250" 
+                            TickPlacement="Outside" 
+                            Orientation="Horizontal"
+                            SnapsTo="Ticks"
+                            Header="Duration (Milliseconds)"
+                    Minimum="{x:Bind mainViewModel.Movement.MinDuration, Mode=OneWay, FallbackValue=250}"
+                    Maximum="{x:Bind mainViewModel.Movement.MaxDuration, Mode=OneWay, FallbackValue=10000}"
+                    Value="{x:Bind mainViewModel.Movement.Duration, Mode=TwoWay}"
+                    />
 
             <mui:NumberBox 
                 Grid.Row="2"

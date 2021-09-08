@@ -17,8 +17,10 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _powerCharacteristic;
         private ObservableGattCharacteristics _stopCharacteristic;
         private int _defaultPowerPercent = 75;
-        private TimeSpan _defaultDuration = new TimeSpan(0,0,0,0,250);
+        private double _duration = 250;
         private bool _isReady = false;
+        public double MaxDuration { get => 10000; }
+        public double MinDuration { get => 250; }
 
         public MovementViewModel()
         {
@@ -29,6 +31,12 @@ namespace BerthaRemote.ViewModels
         {
             get => _isReady;
             set => SetProperty(ref _isReady, value);
+        }
+
+        public double Duration
+        {
+            get => _duration;
+            set => SetProperty(ref _duration, value);
         }
 
         public async Task<bool> TogglePowerOn(bool toggleTo)
@@ -117,14 +125,17 @@ namespace BerthaRemote.ViewModels
             IsReady = true;
         }
 
-        public async Task<string> Move(Direction directionToMove, int movementPowerPercent, TimeSpan movementDuration)
+        public async Task<string> Move(Direction directionToMove, int movementPowerPercent)
         {
             var payload = string.Empty;
             var sent = false;
 
+            
+
             if (movementPowerPercent < 0 ||
                 movementPowerPercent > 100 ||
-                movementDuration.TotalMilliseconds > 999
+                Duration > 10000 ||
+                Duration < 1
                 )
             {
                 throw new ArgumentOutOfRangeException();
@@ -132,7 +143,7 @@ namespace BerthaRemote.ViewModels
 
             try
             {
-                string[] payLoadStringArray = { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(movementDuration.TotalMilliseconds) };
+                string[] payLoadStringArray = { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(Duration) };
                 payload = string.Join("-", payLoadStringArray);
 
                 GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);
