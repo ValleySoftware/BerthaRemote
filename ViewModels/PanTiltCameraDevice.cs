@@ -14,6 +14,9 @@ namespace BerthaRemote.ViewModels
         private string _cameraIP;
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
         private ObservableGattCharacteristics _btSweepCharacteristic;
+        private ObservableGattCharacteristics _btDistanceCharacteristic;
+        private int _distance = -1;
+
         public enum speed { stop, slow, medium, fast };
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
@@ -28,12 +31,18 @@ namespace BerthaRemote.ViewModels
 
             _btPanTiltCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDPanTilt));
             _btSweepCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDPanSweep));
+            _btDistanceCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDDistance));
         }
 
         public string CameraIP
         {
             get => _cameraIP;
             set => SetProperty(ref _cameraIP, value);
+        }
+
+        public int Distance
+        {
+            get => Convert.ToInt32(_btDistanceCharacteristic.UUID);
         }
 
         public void MoveToPosition(int newPan, int newTilt)

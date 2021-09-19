@@ -19,6 +19,7 @@ namespace Enumerations
         public const string UUIDPower = @"017e99d6-8a61-11eb-8dcd-0242ac1a5103";
         public const string UUIDAdvancedMove = @"017e99d6-8a61-11eb-8dcd-0242ac1a5104";
         public const string UUIDPanSweep = @"017e99d6-8a61-11eb-8dcd-0242ac1a5105";
+        public const string UUIDDistance = @"017e99d6-8a61-11eb-8dcd-0242ac1a5106";
 
         public static bool CommStatusToBool(GattCommunicationStatus statusToCheck)
         {

@@ -95,6 +95,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
+                    <TextBlock Text="{x:Bind device.Distance, Mode=OneWay}"/>
 
                     <wui:Button
                             x:Name="tiltUp"
