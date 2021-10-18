@@ -13,7 +13,6 @@ namespace BerthaRemote.ViewModels
     public class MovementViewModel : ValleyBaseViewModel
     {
         private ObservableGattCharacteristics _advancedMovementCharacteristic;
-        private ObservableGattCharacteristics _movementCharacteristic;
         private ObservableGattCharacteristics _powerCharacteristic;
         private ObservableGattCharacteristics _stopCharacteristic;
         private int _defaultPowerPercent = 75;
@@ -103,14 +102,12 @@ namespace BerthaRemote.ViewModels
 
         public void Load(
             ObservableGattCharacteristics advancedMovementCharacteristic,
-            ObservableGattCharacteristics movementCharacteristic, 
             ObservableGattCharacteristics powerCharacteristic,
             ObservableGattCharacteristics stopCharacteristic)
         {
             IsReady = false;
 
             if (advancedMovementCharacteristic == null ||
-                movementCharacteristic == null ||
                 powerCharacteristic == null ||
                 stopCharacteristic == null)
             {
@@ -119,7 +116,6 @@ namespace BerthaRemote.ViewModels
             }
             _advancedMovementCharacteristic = advancedMovementCharacteristic;
             _powerCharacteristic = powerCharacteristic;
-            _movementCharacteristic = movementCharacteristic;
             _stopCharacteristic = stopCharacteristic;
 
             IsReady = true;

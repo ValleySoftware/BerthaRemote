@@ -44,7 +44,7 @@ namespace BerthaRemote.UserControls
         {
             if (device != null)
             {
-                device.AutoPan(PanTiltCameraDevice.speed.stop);
+                device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
             }
         }
 

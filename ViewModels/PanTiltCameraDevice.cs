@@ -17,7 +17,6 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btDistanceCharacteristic;
         private int _distance = -1;
 
-        public enum speed { stop, slow, medium, fast };
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
@@ -50,7 +49,7 @@ namespace BerthaRemote.ViewModels
 
         }
 
-        public async void AutoPan(speed speed)
+        public async void AutoPan(ServoMovementSpeed speed)
         {
                 string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)speed;
                 GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);     

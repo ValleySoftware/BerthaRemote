@@ -137,7 +137,6 @@ namespace BerthaRemote.ViewModels
                 {
                     Movement.Load(
                         CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDAdvancedMove)),
-                        CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDMove)),
                         CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Enumerations.Constants.UUIDPower)),
                         CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDStop))
                         );
