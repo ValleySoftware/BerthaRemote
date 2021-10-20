@@ -44,7 +44,9 @@ namespace BerthaRemote.UserControls
         {
             if (device != null)
             {
-                device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
+                device.UpdateDistanceValue();
+                distanceTextBox.Text = device.Distance.ToString();
+                //device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
             }
         }
 

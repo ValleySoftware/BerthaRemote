@@ -15,7 +15,7 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
         private ObservableGattCharacteristics _btSweepCharacteristic;
         private ObservableGattCharacteristics _btDistanceCharacteristic;
-        private int _distance = -1;
+        private double _distance = -1;
 
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
@@ -28,9 +28,39 @@ namespace BerthaRemote.ViewModels
                 CameraIP = (string)parameters[0];
             }
 
-            _btPanTiltCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDPanTilt));
-            _btSweepCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDPanSweep));
-            _btDistanceCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDDistance));
+            _btPanTiltCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
+            _btSweepCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
+            _btDistanceCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDDistance));
+            _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
+            _btDistanceCharacteristic.SetNotifyAsync();
+        }
+
+        private async void _btDistanceCharacteristic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            try
+            {
+                string result = await _btDistanceCharacteristic.ReadValueAsync();
+
+                Distance = Convert.ToInt32(result);
+            }
+            catch (Exception distUpdateEx)
+            {
+
+            }
+        }
+
+        public async void UpdateDistanceValue()
+        {
+            try
+            {
+                //string result = await _btDistanceCharacteristic.ReadValueAsync();
+
+                //Distance = Convert.ToInt32(result);
+            }
+            catch (Exception distUpdateEx)
+            {
+
+            }
         }
 
         public string CameraIP
@@ -41,7 +71,8 @@ namespace BerthaRemote.ViewModels
 
         public int Distance
         {
-            get => Convert.ToInt32(_btDistanceCharacteristic.UUID);
+            get => Convert.ToInt32(_distance);
+            set => SetProperty(ref _distance, value);
         }
 
         public void MoveToPosition(int newPan, int newTilt)
