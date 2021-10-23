@@ -53,9 +53,14 @@ namespace BerthaRemote.ViewModels
         {
             try
             {
-                //string result = await _btDistanceCharacteristic.ReadValueAsync();
+                string result = await _btDistanceCharacteristic.ReadValueAsync();
 
-                //Distance = Convert.ToInt32(result);
+                var cleaned = result.Replace("-", "");
+
+                var b = MainViewModel.StringToByteArray(cleaned);
+
+                Distance = BitConverter.ToInt32(b,0);
+                //Distance = Convert.ToInt32(b);
             }
             catch (Exception distUpdateEx)
             {
