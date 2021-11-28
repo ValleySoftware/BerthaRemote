@@ -34,7 +34,7 @@ namespace BerthaRemote.UserControls
             {
                 CameraWebView.Navigate(new Uri(@"http://" + device.CameraIP));
             }
-            catch (Exception webcamConnectEx)
+            catch (Exception)
             {
 
             }

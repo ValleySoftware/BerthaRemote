@@ -26,7 +26,7 @@ namespace BerthaRemote.ViewModels
             {
                 Items.Add(deviceToAdd);
             }
-            catch (Exception addItemEx)
+            catch (Exception)
             {
 
             }

@@ -118,7 +118,7 @@ namespace BerthaRemote.ViewModels
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
@@ -131,6 +131,22 @@ namespace BerthaRemote.ViewModels
             for (int i = 0; i < NumberChars; i += 2)
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
+        }
+
+        public static string HexToValue(String hex)
+        {
+
+
+
+
+
+
+            //int NumberChars = hex.Length;
+            //byte[] bytes = new byte[NumberChars / 2];
+            //for (int i = 0; i < NumberChars; i += 2)
+            //    bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            // return bytes;
+            return string.Empty;
         }
 
         private void ConnectServices()
@@ -163,7 +179,7 @@ namespace BerthaRemote.ViewModels
                     ptcp[0] = @"http://10.1.1.21";
                     panTitCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Movement.IsReady = false;
                     
@@ -189,7 +205,7 @@ namespace BerthaRemote.ViewModels
                     Console.WriteLine("BLE message sent");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }

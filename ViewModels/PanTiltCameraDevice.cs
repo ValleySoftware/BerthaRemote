@@ -2,6 +2,7 @@
 using Microsoft.Toolkit.Uwp.Connectivity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,18 +33,18 @@ namespace BerthaRemote.ViewModels
             _btSweepCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
             _btDistanceCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDDistance));
             _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
-            _btDistanceCharacteristic.SetNotifyAsync();
+            //_btDistanceCharacteristic.SetNotifyAsync();
         }
 
         private async void _btDistanceCharacteristic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             try
             {
-                string result = await _btDistanceCharacteristic.ReadValueAsync();
+                var result = _btDistanceCharacteristic.Value; //await _btDistanceCharacteristic.ReadValueAsync();
 
                 Distance = Convert.ToInt32(result);
             }
-            catch (Exception distUpdateEx)
+            catch (Exception)
             {
 
             }
@@ -53,16 +54,17 @@ namespace BerthaRemote.ViewModels
         {
             try
             {
-                string result = await _btDistanceCharacteristic.ReadValueAsync();
+                string result =  _btDistanceCharacteristic.Value;
 
                 var cleaned = result.Replace("-", "");
+                //string breaker = @"\";
+                var sp = cleaned.Split(Path.DirectorySeparatorChar);
+                Distance = Convert.ToInt32(sp[0]);
+                //var b = MainViewModel.StringToByteArray(cleaned);
 
-                var b = MainViewModel.StringToByteArray(cleaned);
-
-                Distance = BitConverter.ToInt32(b,0);
-                //Distance = Convert.ToInt32(b);
+                //Distance = BitConverter.ToInt32(b, 0);
             }
-            catch (Exception distUpdateEx)
+            catch (Exception ex)
             {
 
             }

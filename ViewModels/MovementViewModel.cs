@@ -15,7 +15,6 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _advancedMovementCharacteristic;
         private ObservableGattCharacteristics _powerCharacteristic;
         private ObservableGattCharacteristics _stopCharacteristic;
-        private int _defaultPowerPercent = 75;
         private double _duration = 250;
         private bool _isReady = false;
         public double MaxDuration { get => 10000; }
@@ -66,7 +65,7 @@ namespace BerthaRemote.ViewModels
                     default: result = false; break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = false;
             }
@@ -92,7 +91,7 @@ namespace BerthaRemote.ViewModels
                     default: result = false; break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = false;
             }
@@ -146,7 +145,7 @@ namespace BerthaRemote.ViewModels
 
                 sent = Constants.CommStatusToBool(sendResult);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 sent = false;
             }
