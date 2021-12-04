@@ -11,26 +11,6 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <local:DeviceTemplateSelector x:Key="DeviceTemplateSelector" />
-
-        <DataTemplate x:Key="ManipulatorArmDataTemplate" x:DataType="viewmodels:IDevice" >
-            <local:PanTiltCameraUserControl />
-        </DataTemplate>
-        <DataTemplate x:Key="PanTiltCameraDataTemplate" x:DataType="viewmodels:IDevice">
-            <local:PanTiltCameraUserControl />
-        </DataTemplate>
-        <DataTemplate x:Key="PanTiltDistanceDataTemplate" x:DataType="viewmodels:IDevice" >
-            <local:PanTiltCameraUserControl />
-        </DataTemplate>
-        <DataTemplate x:Key="StaticMountCameraDataTemplate" x:DataType="viewmodels:IDevice">
-            <local:StaticCameraUserControl />
-        </DataTemplate>
-        <DataTemplate x:Key="TemperatureSensorDataTemplate" x:DataType="viewmodels:IDevice" >
-            <local:PanTiltCameraUserControl />
-        </DataTemplate>
-    </UserControl.Resources>
-
     <Grid
         HorizontalAlignment="Stretch"
         VerticalAlignment="Stretch"
@@ -54,8 +34,9 @@
             Style="{ThemeResource SubtitleTextBlockStyle}"
             Text="Doohickeys" />
 
+        <wui:ScrollViewer 
+            Grid.Row="1">
         <Grid
-            Grid.Row="1"
             Margin="8"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -63,21 +44,17 @@
             <Grid.BorderBrush>
                 <RevealBorderBrush FallbackColor="Red" Color="Red" />
             </Grid.BorderBrush>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <wui:ListView
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"    
-                ui:ListViewExtensions.ItemContainerStretchDirection="Both"
-
-            ItemsSource="{x:Bind mainViewModel.Devices.Items, Mode=OneWay}"
-                >
-                <wui:ListView.ItemTemplate>
-                    <DataTemplate  x:DataType="viewmodels:IDevice">
-                        <local:PanTiltCameraUserControl />
-                    </DataTemplate>
-                </wui:ListView.ItemTemplate>
-            </wui:ListView>
+            <local:StaticCameraUserControl Grid.Row="0"   DataContext="{x:Bind mainViewModel.Devices.ForwardDistance}"/>
+            <local:PanTiltDistanceUserControl Grid.Row="1"   DataContext="{x:Bind mainViewModel.Devices.PanTiltDist}"/>
+            <local:PanTiltCameraUserControl Grid.Row="2"  DataContext="{x:Bind mainViewModel.Devices.PanTiltCam}"/>
         </Grid>
+        </wui:ScrollViewer>
     </Grid>
 </UserControl>

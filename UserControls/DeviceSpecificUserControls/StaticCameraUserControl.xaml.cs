@@ -20,7 +20,7 @@ namespace BerthaRemote.UserControls
 {
     public sealed partial class StaticCameraUserControl : UserControl
     {
-        public StaticCameraDevice device => DataContext as StaticCameraDevice;
+        public ForwardSensorArray device => DataContext as ForwardSensorArray;
 
         public StaticCameraUserControl()
         {

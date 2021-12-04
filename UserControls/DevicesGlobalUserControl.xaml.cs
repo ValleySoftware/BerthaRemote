@@ -13,37 +13,6 @@ using Windows.UI.Xaml.Controls;
 
 namespace BerthaRemote.UserControls
 {
-    public class DeviceTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate ManipulatorArmDataTemplate { get; set; }
-        public DataTemplate PanTiltCameraDataTemplate { get; set; }
-        public DataTemplate PanTiltDistanceDataTemplate { get; set; }
-        public DataTemplate StaticMountCameraDataTemplate { get; set; }
-        public DataTemplate TemperatureSensorDataTemplate { get; set; }
-
-        protected override DataTemplate SelectTemplateCore(object item)
-        {
-            var vm = item as IDevice;
-
-            if (vm != null)
-            {
-                switch (vm.TypeOfDevice)
-                {
-                    case DeviceType.ManipulatorArm : return ManipulatorArmDataTemplate; 
-                    case DeviceType.PanTiltCamera: return PanTiltCameraDataTemplate;// PanTiltCameraDataTemplate; 
-                    case DeviceType.PanTiltDistance: return PanTiltDistanceDataTemplate; 
-                    case DeviceType.StaticMountCamera: return StaticMountCameraDataTemplate; 
-                    case DeviceType.TemperatureSensor: return TemperatureSensorDataTemplate; 
-                    default: return StaticMountCameraDataTemplate; 
-                }                
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-
     public sealed partial class DevicesGlobalUserControl : UserControl
     {
         MainViewModel mainViewModel => App.mainViewModel;
@@ -51,21 +20,6 @@ namespace BerthaRemote.UserControls
         public DevicesGlobalUserControl()
         {
             this.InitializeComponent();
-        }
-
-        private void connectCameraOne_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void connectCameraTwo_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void connectCameraThree_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

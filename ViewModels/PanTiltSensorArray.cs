@@ -1,4 +1,5 @@
 ﻿using Enumerations;
+using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace BerthaRemote.ViewModels
 {
-    public partial class PanTiltCameraDevice : BaseDeviceViewModel, IDevice
+    public partial class PanTiltSensorArray : BaseDeviceViewModel, IDevice
     {
         private string _cameraIP;
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
@@ -21,28 +22,40 @@ namespace BerthaRemote.ViewModels
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
-            base.Load(parentList, typeOfDevice, parameters);
-
-            if (parameters != null &&
-                parameters.Count() > 1)
+            if (!Thinking)
             {
-                CameraIP = (string)parameters[0];
-            }
+                Thinking = true;
 
-            _btPanTiltCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
-            _btSweepCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
-            _btDistanceCharacteristic = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDDistance));
-            _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
-            //_btDistanceCharacteristic.SetNotifyAsync();
+                base.Load(parentList, typeOfDevice, parameters);
+
+                if (parameters != null &&
+                    parameters.Count() > 1)
+                {
+                    CameraIP = (string)parameters[0];
+                }
+
+                _btPanTiltCharacteristic = App.mainViewModel.charPanTilt;
+                _btSweepCharacteristic = App.mainViewModel.charPanSweep;
+                _btDistanceCharacteristic = App.mainViewModel.charPanTiltDistanceDistance;
+
+
+                _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
+                _btDistanceCharacteristic.SetNotifyAsync();
+
+                Thinking = false;
+            }
         }
 
         private async void _btDistanceCharacteristic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             try
             {
-                var result = _btDistanceCharacteristic.Value; //await _btDistanceCharacteristic.ReadValueAsync();
+                var result = _btDistanceCharacteristic.Value; 
+                //await _btDistanceCharacteristic.ReadValueAsync();
 
-                Distance = Convert.ToInt32(result);
+                var cleaned = result.Replace("-", "");
+                var sp = cleaned.Split(Path.DirectorySeparatorChar);
+                Distance = Convert.ToInt32(sp[0]);
             }
             catch (Exception)
             {
@@ -54,15 +67,11 @@ namespace BerthaRemote.ViewModels
         {
             try
             {
-                string result =  _btDistanceCharacteristic.Value;
+                var result = await _btDistanceCharacteristic.ReadValueAsync();
 
                 var cleaned = result.Replace("-", "");
-                //string breaker = @"\";
                 var sp = cleaned.Split(Path.DirectorySeparatorChar);
                 Distance = Convert.ToInt32(sp[0]);
-                //var b = MainViewModel.StringToByteArray(cleaned);
-
-                //Distance = BitConverter.ToInt32(b, 0);
             }
             catch (Exception ex)
             {
@@ -89,14 +98,14 @@ namespace BerthaRemote.ViewModels
 
         public async void AutoPan(ServoMovementSpeed speed)
         {
-                string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)speed;
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);     
+                //string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)speed;
+                //GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);     
         }
 
         public async void Stop()
         {
-            string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)ServoMovementSpeed.Stop;
-            GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);
+            //string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)ServoMovementSpeed.Stop;
+            //GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);
         }
     }
 }

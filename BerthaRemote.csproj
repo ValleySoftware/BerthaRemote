@@ -131,6 +131,9 @@
     <Compile Include="UserControls\DevicesGlobalUserControl.xaml.cs">
       <DependentUpon>DevicesGlobalUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DeviceSpecificUserControls\PanTiltDistanceUserControl.xaml.cs">
+      <DependentUpon>PanTiltDistanceUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DeviceSpecificUserControls\StaticCameraUserControl.xaml.cs">
       <DependentUpon>StaticCameraUserControl.xaml</DependentUpon>
     </Compile>
@@ -145,8 +148,8 @@
     <Compile Include="ViewModels\IDevice.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MovementViewModel.cs" />
-    <Compile Include="ViewModels\PanTiltCameraDevice.cs" />
-    <Compile Include="ViewModels\StaticCameraDevice.cs" />
+    <Compile Include="ViewModels\PanTiltSensorArray.cs" />
+    <Compile Include="ViewModels\ForwardSensorArray.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DevicesGlobalUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DeviceSpecificUserControls\PanTiltDistanceUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

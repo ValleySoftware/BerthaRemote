@@ -13,6 +13,7 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using Buffer = Windows.Storage.Streams.Buffer;
+using Enumerations;
 
 namespace BerthaRemote.ViewModels
 {
@@ -24,6 +25,15 @@ namespace BerthaRemote.ViewModels
         public BluetoothLEHelper bluetoothLEHelper = BluetoothLEHelper.Context;
         private MovementViewModel _movement;
         private DeviceListViewModel _devices = new DeviceListViewModel();
+
+        public ObservableGattCharacteristics charMove;
+        public ObservableGattCharacteristics charPower;
+        public ObservableGattCharacteristics charStop;
+        public ObservableGattCharacteristics charPanTilt;
+        public ObservableGattCharacteristics charPanSweep;
+        public ObservableGattCharacteristics charForwardDistance;
+        public ObservableGattCharacteristics charPanTiltDistanceDistance;
+
 
         public MainViewModel()
         {
@@ -133,22 +143,6 @@ namespace BerthaRemote.ViewModels
             return bytes;
         }
 
-        public static string HexToValue(String hex)
-        {
-
-
-
-
-
-
-            //int NumberChars = hex.Length;
-            //byte[] bytes = new byte[NumberChars / 2];
-            //for (int i = 0; i < NumberChars; i += 2)
-            //    bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            // return bytes;
-            return string.Empty;
-        }
-
         private void ConnectServices()
         {
             if (CurrentService != null)
@@ -160,24 +154,34 @@ namespace BerthaRemote.ViewModels
 
                 try
                 {
+                    charMove = CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Constants.UUIDAdvancedMove));
+                    charPower = CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Constants.UUIDPower));
+                    charStop = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDStop));
+                    charPanTilt = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
+                    charPanSweep = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
+                    charForwardDistance = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
+                    charPanTiltDistanceDistance = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
+
+
                     Movement.Load(
-                        CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Enumerations.Constants.UUIDAdvancedMove)),
-                        CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Enumerations.Constants.UUIDPower)),
-                        CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Enumerations.Constants.UUIDStop))
+                        charMove,
+                        charPower,
+                        charStop
                         );
 
-                    Devices.Items.Clear();
-                    var staticCam = new StaticCameraDevice();
-                    Devices.AddItem(staticCam);
+                    Devices.ForwardDistance = new ForwardSensorArray();
                     string[] scp = new string[1];
                     scp[0] = @"http://10.1.1.23";
-                    staticCam.Load(Devices, DeviceType.StaticMountCamera, scp);
+                    Devices.ForwardDistance.Load(Devices, DeviceType.StaticMountCamera, scp);
 
-                    var panTitCam = new PanTiltCameraDevice();
-                    Devices.AddItem(panTitCam);
+                    Devices.PanTiltDist = new PanTiltSensorArray();
                     string[] ptcp = new string[2];
-                    ptcp[0] = @"http://10.1.1.21";
-                    panTitCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
+                    Devices.PanTiltDist.Load(Devices, DeviceType.PanTiltDistance, ptcp);
+
+                    Devices.PanTiltCam = new PanTiltSensorArray();
+                    string[] ctcp = new string[2];
+                    ctcp[0] = @"http://10.1.1.21";
+                    Devices.PanTiltCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
                 }
                 catch (Exception)
                 {
