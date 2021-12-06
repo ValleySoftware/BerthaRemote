@@ -40,10 +40,14 @@
             Margin="8"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            BorderThickness="0,2,0,0">
+            BorderThickness="0,2,0,0"
+            x:Name="devicesContainer"
+            x:Load="{x:Bind mainViewModel.IsNotNull(mainViewModel.CurrentService), Mode=OneWay}">
+            
             <Grid.BorderBrush>
                 <RevealBorderBrush FallbackColor="Red" Color="Red" />
             </Grid.BorderBrush>
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -51,10 +55,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <local:StaticCameraUserControl Grid.Row="0"   DataContext="{x:Bind mainViewModel.Devices.ForwardDistance}"/>
-            <local:PanTiltDistanceUserControl Grid.Row="1"   DataContext="{x:Bind mainViewModel.Devices.PanTiltDist}"/>
-            <local:PanTiltCameraUserControl Grid.Row="2"  DataContext="{x:Bind mainViewModel.Devices.PanTiltCam}"/>
-        </Grid>
+                <Grid Grid.Row="0" >
+                    <local:StaticCameraUserControl />
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <local:PanTiltDistanceUserControl />
+                </Grid>
+                <Grid Grid.Row="2" >
+                    <local:PanTiltCameraUserControl />
+                </Grid>
+            </Grid>
         </wui:ScrollViewer>
     </Grid>
 </UserControl>

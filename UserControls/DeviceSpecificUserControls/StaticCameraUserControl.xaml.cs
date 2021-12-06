@@ -20,19 +20,23 @@ namespace BerthaRemote.UserControls
 {
     public sealed partial class StaticCameraUserControl : UserControl
     {
-        public ForwardSensorArray device => DataContext as ForwardSensorArray;
+        public ForwardSensorArray device => App.mainViewModel.Devices.ForwardDistance;
 
         public StaticCameraUserControl()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => Bindings.Update();
         }
 
         private void connectCamera_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                CameraWebView.Navigate(new Uri(@"http://" + device.CameraIP));
+                device.UpdateDistanceValue();
+
+                if (Uri.CheckSchemeName(device.CameraIP))
+                {
+                    CameraWebView.Navigate(new Uri(@"http://" + device.CameraIP));
+                }
             }
             catch (Exception)
             {

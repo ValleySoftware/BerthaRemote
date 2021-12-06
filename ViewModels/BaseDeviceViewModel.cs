@@ -47,9 +47,9 @@ namespace BerthaRemote.ViewModels
 
         public virtual void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
-            ParentList = parentList;
-            TypeOfDevice = typeOfDevice;
-            Parameters = parameters;
+            _parentList = parentList;
+            _typeOfDevice = typeOfDevice;
+            _parameters = parameters;
         }
     }
 }

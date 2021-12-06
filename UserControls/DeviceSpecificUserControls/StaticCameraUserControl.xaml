@@ -51,8 +51,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-
-            <TextBlock Text="{x:Bind device.Distance, Mode=OneWay}" x:Name="distanceTextBox"/>
+            <TextBox Text="{x:Bind device.Distance, Mode=OneWay}" x:Name="distanceTextBox"/>
             
             <wui:Button
                 x:Name="connectCamera"

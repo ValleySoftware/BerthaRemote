@@ -29,34 +29,27 @@ namespace BerthaRemote.ViewModels
                 }
 
                 _btDistanceCharacteristic = App.mainViewModel.charForwardDistance;
-                _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
+                _btDistanceCharacteristic.DispatcherQueue = App.dispatcherQueue;
+                _btDistanceCharacteristic.Characteristic.ValueChanged += Characteristic_ValueChanged;
                 _btDistanceCharacteristic.SetNotifyAsync();
-
+                _btDistanceCharacteristic.SetIndicateAsync();
+                IsReady = true;
+                IsActive = true;
                 Thinking = false;
             }
+        }
+
+        private void Characteristic_ValueChanged(
+            Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic sender, 
+            Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs args)
+        {
+            UpdateDistanceValue();
         }
 
         public string CameraIP
         {
             get => _cameraIP;
             set => SetProperty(ref _cameraIP, value);
-        }
-
-        private async void _btDistanceCharacteristic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            try
-            {
-                var result = _btDistanceCharacteristic.Value;
-                //await _btDistanceCharacteristic.ReadValueAsync();
-
-                var cleaned = result.Replace("-", "");
-                var sp = cleaned.Split(Path.DirectorySeparatorChar);
-                Distance = Convert.ToInt32(sp[0]);
-            }
-            catch (Exception)
-            {
-
-            }
         }
 
         public async void UpdateDistanceValue()

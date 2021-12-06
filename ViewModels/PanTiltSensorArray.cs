@@ -1,4 +1,5 @@
-﻿using Enumerations;
+﻿using BerthaRemote.Helpers;
+using Enumerations;
 using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using System;
@@ -19,7 +20,6 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btDistanceCharacteristic;
         private double _distance = -1;
 
-
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
             if (!Thinking)
@@ -36,46 +36,58 @@ namespace BerthaRemote.ViewModels
 
                 _btPanTiltCharacteristic = App.mainViewModel.charPanTilt;
                 _btSweepCharacteristic = App.mainViewModel.charPanSweep;
-                _btDistanceCharacteristic = App.mainViewModel.charPanTiltDistanceDistance;
 
+                if (typeOfDevice == DeviceType.PanTiltDistance)
+                {
+                    _btDistanceCharacteristic = App.mainViewModel.charPanTiltDistanceDistance;
 
-                _btDistanceCharacteristic.PropertyChanged += _btDistanceCharacteristic_PropertyChanged;
-                _btDistanceCharacteristic.SetNotifyAsync();
+                    _btDistanceCharacteristic.DispatcherQueue = App.dispatcherQueue;
+                    _btDistanceCharacteristic.Characteristic.ValueChanged += Characteristic_ValueChanged;
+                    _btDistanceCharacteristic.SetNotifyAsync();
+                    _btDistanceCharacteristic.SetIndicateAsync();
+                }
+
+                IsReady = true;
+                IsActive = true;
 
                 Thinking = false;
             }
         }
 
-        private async void _btDistanceCharacteristic_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Characteristic_ValueChanged(
+            GattCharacteristic sender,
+            GattValueChangedEventArgs args)
         {
-            try
-            {
-                var result = _btDistanceCharacteristic.Value; 
-                //await _btDistanceCharacteristic.ReadValueAsync();
-
-                var cleaned = result.Replace("-", "");
-                var sp = cleaned.Split(Path.DirectorySeparatorChar);
-                Distance = Convert.ToInt32(sp[0]);
-            }
-            catch (Exception)
-            {
-
-            }
+            UpdateDistanceValue();
         }
 
         public async void UpdateDistanceValue()
         {
-            try
+            if (TypeOfDevice == DeviceType.PanTiltDistance)
             {
-                var result = await _btDistanceCharacteristic.ReadValueAsync();
+                try
+                {
+                    var result = await _btDistanceCharacteristic.ReadValueAsync();
 
-                var cleaned = result.Replace("-", "");
-                var sp = cleaned.Split(Path.DirectorySeparatorChar);
-                Distance = Convert.ToInt32(sp[0]);
-            }
-            catch (Exception ex)
-            {
 
+                    string cleaned = string.Empty;
+
+                    if (result.Contains("-"))
+                    {
+                        cleaned = result.Replace("-", "");
+                        var c = StaticHelpers.StringToByteArray(cleaned);
+                        Distance = Convert.ToInt32(c);
+                    }
+                    else
+                    {
+                        var sp = result.Split(Path.DirectorySeparatorChar);
+                        Distance = Convert.ToInt32(sp[0]);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 

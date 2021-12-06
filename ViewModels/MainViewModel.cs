@@ -82,8 +82,10 @@ namespace BerthaRemote.ViewModels
             get => _currentService;
             set
             {
-                SetProperty(ref _currentService, value);
-                ConnectServices();
+                if (SetProperty(ref _currentService, value))
+                {
+                    ConnectServices();
+                };
             }
         }
 
@@ -101,10 +103,13 @@ namespace BerthaRemote.ViewModels
 
         public void ListAvailableBluetoothDevices()
         {
+            App.dispatcherQueue.EnqueueAsync(() =>
+            {
                 Thinking = true;
                 // Start the Enumeration
                 bluetoothLEHelper.StopEnumeration();
                 bluetoothLEHelper.StartEnumeration();
+            });
         }
 
         public async void ConnectToBTEDevice(ObservableBluetoothLEDevice deviceToConnectTo)
@@ -132,15 +137,6 @@ namespace BerthaRemote.ViewModels
             {
 
             }
-        }
-
-        public static byte[] StringToByteArray(String hex)
-        {
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            return bytes;
         }
 
         private void ConnectServices()
@@ -181,7 +177,7 @@ namespace BerthaRemote.ViewModels
                     Devices.PanTiltCam = new PanTiltSensorArray();
                     string[] ctcp = new string[2];
                     ctcp[0] = @"http://10.1.1.21";
-                    Devices.PanTiltCam.Load(Devices, DeviceType.PanTiltCamera, ptcp);
+                    Devices.PanTiltCam.Load(Devices, DeviceType.PanTiltCamera, ctcp);
                 }
                 catch (Exception)
                 {
