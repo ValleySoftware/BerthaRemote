@@ -92,7 +92,11 @@ namespace BerthaRemote.ViewModels
         public DeviceListViewModel Devices
         {
             get => _devices;
-            set => SetProperty(ref _devices, value);
+            set
+            {
+                SetProperty(ref _devices, value);
+
+            }
         }
 
     public MovementViewModel Movement
@@ -126,6 +130,21 @@ namespace BerthaRemote.ViewModels
                     if (deviceToConnectTo.IsConnected)
                     {
                         CurrentDevice = deviceToConnectTo;
+
+
+
+                        foreach (var element in CurrentDevice.Services)
+                        {
+                            if (element.Name.Equals("41"))
+                            {
+                                if (!CurrentDevice.IsConnected)
+                                {
+                                    await Task.Delay(TimeSpan.FromSeconds(1));
+                                }
+                                CurrentService = element;
+                                break;
+                            }
+                        }
                         /*if (!deviceToConnectTo.IsPaired)
                         {
                             await deviceToConnectTo.DoInAppPairingAsync();
