@@ -42,7 +42,7 @@
             VerticalAlignment="Stretch"
             BorderThickness="0,2,0,0"
             x:Name="devicesContainer"
-            x:Load="{x:Bind mainViewModel.IsNotNull(mainViewModel.CurrentService), Mode=OneWay}">
+            x:Load="{x:Bind mainViewModel.CommunicationsReady, Mode=OneWay}">
             
             <Grid.BorderBrush>
                 <RevealBorderBrush FallbackColor="Red" Color="Red" />

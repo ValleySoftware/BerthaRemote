@@ -23,6 +23,7 @@ namespace BerthaRemote.ViewModels
         private ObservableGattDeviceService _currentService;
         private ObservableGattCharacteristics _currentCharacteristic;
         public BluetoothLEHelper bluetoothLEHelper = BluetoothLEHelper.Context;
+        private bool _communicationsReady = false;
         private MovementViewModel _movement;
         private DeviceListViewModel _devices = new DeviceListViewModel();
 
@@ -76,6 +77,12 @@ namespace BerthaRemote.ViewModels
             get => _currentDevice;
             set => SetProperty(ref _currentDevice, value);
         }
+
+        public bool CommunicationsReady
+        {
+            get => _communicationsReady;
+            set => SetProperty(ref _communicationsReady, value);
+        }        
 
         public ObservableGattDeviceService CurrentService
         {
@@ -137,7 +144,7 @@ namespace BerthaRemote.ViewModels
                         {
                             if (element.Name.Equals("41"))
                             {
-                                if (!CurrentDevice.IsConnected)
+                                if (!CommunicationsReady)
                                 {
                                     await Task.Delay(TimeSpan.FromSeconds(1));
                                 }
@@ -172,10 +179,12 @@ namespace BerthaRemote.ViewModels
                     charMove = CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Constants.UUIDAdvancedMove));
                     charPower = CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Constants.UUIDPower));
                     charStop = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDStop));
-                    charPanTilt = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
-                    charPanSweep = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
-                    charForwardDistance = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
-                    charPanTiltDistanceDistance = App.mainViewModel.CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
+                    charPanTilt = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
+                    charPanSweep = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
+                    charForwardDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
+                    charPanTiltDistanceDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
+
+                    CommunicationsReady = true;
 
 
                     Movement.Load(
@@ -201,6 +210,7 @@ namespace BerthaRemote.ViewModels
                 catch (Exception)
                 {
                     Movement.IsReady = false;
+                    CommunicationsReady = false;
                     
                 }
             }
