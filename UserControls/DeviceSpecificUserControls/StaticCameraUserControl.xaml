@@ -48,6 +48,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -76,6 +77,10 @@
                 Height="240"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center" />
+            <wui:ToggleSwitch 
+                IsOn="{x:Bind device.LightsOn, Mode=TwoWay}"
+                Header="Headlights"
+                Grid.Row="4"/>
 
         </Grid>
     </Grid>

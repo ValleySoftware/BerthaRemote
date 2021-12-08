@@ -34,6 +34,7 @@ namespace BerthaRemote.ViewModels
         public ObservableGattCharacteristics charPanSweep;
         public ObservableGattCharacteristics charForwardDistance;
         public ObservableGattCharacteristics charPanTiltDistanceDistance;
+        public ObservableGattCharacteristics charLightsCharacteristic;
 
 
         public MainViewModel()
@@ -183,6 +184,7 @@ namespace BerthaRemote.ViewModels
                     charPanSweep = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
                     charForwardDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
                     charPanTiltDistanceDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
+                    charLightsCharacteristic = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDLights));
 
                     CommunicationsReady = true;
 

@@ -1,10 +1,12 @@
-﻿using Microsoft.Toolkit.Uwp.Connectivity;
+﻿using Enumerations;
+using Microsoft.Toolkit.Uwp.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace BerthaRemote.ViewModels
 {
@@ -13,6 +15,8 @@ namespace BerthaRemote.ViewModels
         private string _cameraIP;
         private ObservableGattCharacteristics _btDistanceCharacteristic;
         private double _distance = -1;
+        private ObservableGattCharacteristics _btLightsCharacteristic;
+        private bool _lightsOn = false;
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
@@ -33,6 +37,10 @@ namespace BerthaRemote.ViewModels
                 _btDistanceCharacteristic.Characteristic.ValueChanged += Characteristic_ValueChanged;
                 _btDistanceCharacteristic.SetNotifyAsync();
                 _btDistanceCharacteristic.SetIndicateAsync();
+
+                _btLightsCharacteristic = App.mainViewModel.charLightsCharacteristic;
+                _btLightsCharacteristic.DispatcherQueue = App.dispatcherQueue;
+
                 IsReady = true;
                 IsActive = true;
                 Thinking = false;
@@ -72,6 +80,37 @@ namespace BerthaRemote.ViewModels
         {
             get => Convert.ToInt32(_distance);
             set => SetProperty(ref _distance, value);
+        }
+
+        public bool LightsOn
+        {
+            get => _lightsOn;
+            set
+            {
+                SetProperty(ref _lightsOn, value);
+                SendLightBTMessage(value);
+            }
+        }
+
+        private async Task<bool> SendLightBTMessage(bool valueToSend)
+        {
+            bool sent = false;
+
+            try
+            {
+                string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToBoolean(valueToSend))};
+                string payload = string.Join("-", payLoadStringArray);
+
+                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
+
+                sent = Constants.CommStatusToBool(sendResult);
+            }
+            catch (Exception)
+            {
+                sent = false;
+            }
+
+            return sent;
         }
     }
 }
