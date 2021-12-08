@@ -24,8 +24,13 @@ namespace BerthaRemote.ViewModels
             updateDistances.Interval = 500;
             updateDistances.Elapsed += UpdateDistances_Elapsed;
             updateDistances.AutoReset = true;
-            updateDistances.Enabled = true;
+            updateDistances.Enabled = false;
 
+        }
+
+        public void SetTimerStatus(bool newStatus)
+        {
+            updateDistances.Enabled = newStatus;
         }
 
         private void UpdateDistances_Elapsed(object sender, ElapsedEventArgs e)

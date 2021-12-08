@@ -206,6 +206,8 @@ namespace BerthaRemote.ViewModels
                     string[] ctcp = new string[2];
                     ctcp[0] = @"http://10.1.1.21";
                     Devices.PanTiltCam.Load(Devices, DeviceType.PanTiltCamera, ctcp);
+
+                    Devices.SetTimerStatus(true);
                 }
                 catch (Exception)
                 {
