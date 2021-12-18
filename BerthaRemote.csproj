@@ -131,17 +131,14 @@
     <Compile Include="UserControls\DevicesGlobalUserControl.xaml.cs">
       <DependentUpon>DevicesGlobalUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DeviceSpecificUserControls\PanTiltDistanceUserControl.xaml.cs">
-      <DependentUpon>PanTiltDistanceUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\DeviceSpecificUserControls\StaticCameraUserControl.xaml.cs">
       <DependentUpon>StaticCameraUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MovementUserControl.xaml.cs">
       <DependentUpon>MovementUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DeviceSpecificUserControls\PanTiltCameraUserControl.xaml.cs">
-      <DependentUpon>PanTiltCameraUserControl.xaml</DependentUpon>
+    <Compile Include="UserControls\DeviceSpecificUserControls\PanTiltCameraDistanceUserControl.xaml.cs">
+      <DependentUpon>PanTiltCameraDistanceUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DeviceListViewModel.cs" />
     <Compile Include="ViewModels\BaseDeviceViewModel.cs" />
@@ -187,10 +184,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\DeviceSpecificUserControls\PanTiltDistanceUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\DeviceSpecificUserControls\StaticCameraUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,7 +192,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\DeviceSpecificUserControls\PanTiltCameraUserControl.xaml">
+    <Page Include="UserControls\DeviceSpecificUserControls\PanTiltCameraDistanceUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

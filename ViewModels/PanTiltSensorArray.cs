@@ -18,6 +18,8 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
         private ObservableGattCharacteristics _btSweepCharacteristic;
         private ObservableGattCharacteristics _btDistanceCharacteristic;
+        private int _currentPan = 0;
+        private int _currentTilt = 0;
         private double _distance = -1;
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
@@ -37,9 +39,10 @@ namespace BerthaRemote.ViewModels
                 _btPanTiltCharacteristic = App.mainViewModel.charPanTilt;
                 _btSweepCharacteristic = App.mainViewModel.charPanSweep;
 
-                if (typeOfDevice == DeviceType.PanTiltDistance)
+                if ((typeOfDevice == DeviceType.PanTiltDistance) ||
+                    (typeOfDevice == DeviceType.PanTiltCameraDistCombo))
                 {
-                    _btDistanceCharacteristic = App.mainViewModel.charPanTiltDistanceDistance;
+                    _btDistanceCharacteristic = App.mainViewModel.charPanTiltDistance;
 
                     _btDistanceCharacteristic.DispatcherQueue = App.dispatcherQueue;
                     _btDistanceCharacteristic.Characteristic.ValueChanged += Characteristic_ValueChanged;
@@ -63,12 +66,12 @@ namespace BerthaRemote.ViewModels
 
         public async void UpdateDistanceValue()
         {
-            if (TypeOfDevice == DeviceType.PanTiltDistance)
+            if ((TypeOfDevice == DeviceType.PanTiltDistance) ||
+                (TypeOfDevice == DeviceType.PanTiltCameraDistCombo))
             {
                 try
                 {
                     var result = await _btDistanceCharacteristic.ReadValueAsync();
-
 
                     string cleaned = string.Empty;
 
@@ -103,9 +106,34 @@ namespace BerthaRemote.ViewModels
             set => SetProperty(ref _distance, value);
         }
 
-        public void MoveToPosition(int newPan, int newTilt)
+        public int CurrentPan
         {
+            get => _currentPan;
+            set
+            {
+                if (SetProperty(ref _currentPan, value))
+                {
+                    MoveToPosition(value, CurrentTilt);
+                }
+            }
+        }
 
+        public int CurrentTilt
+        {
+            get => _currentTilt;
+            set
+            {
+                if (SetProperty(ref _currentTilt, value))
+                {
+                    MoveToPosition(CurrentPan, value);
+                }
+            }
+        }
+
+        private async void MoveToPosition(int newPan, int newTilt)
+        {
+            string payload = 0 + "-" + CurrentPan + "-" + CurrentTilt + "-" + (int)ServoMovementSpeed.Flank;
+            GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
         }
 
         public async void AutoPan(ServoMovementSpeed speed)

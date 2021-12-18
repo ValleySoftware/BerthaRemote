@@ -33,7 +33,7 @@ namespace BerthaRemote.ViewModels
         public ObservableGattCharacteristics charPanTilt;
         public ObservableGattCharacteristics charPanSweep;
         public ObservableGattCharacteristics charForwardDistance;
-        public ObservableGattCharacteristics charPanTiltDistanceDistance;
+        public ObservableGattCharacteristics charPanTiltDistance;
         public ObservableGattCharacteristics charLightsCharacteristic;
 
 
@@ -183,7 +183,7 @@ namespace BerthaRemote.ViewModels
                     charPanTilt = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
                     charPanSweep = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
                     charForwardDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
-                    charPanTiltDistanceDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
+                    charPanTiltDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
                     charLightsCharacteristic = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDLights));
 
                     CommunicationsReady = true;
@@ -200,14 +200,10 @@ namespace BerthaRemote.ViewModels
                     scp[0] = @"http://10.1.1.23";
                     Devices.ForwardDistance.Load(Devices, DeviceType.StaticMountCamera, scp);
 
-                    Devices.PanTiltDist = new PanTiltSensorArray();
+                    Devices.PanTiltCombo = new PanTiltSensorArray();
                     string[] ptcp = new string[2];
-                    Devices.PanTiltDist.Load(Devices, DeviceType.PanTiltDistance, ptcp);
-
-                    Devices.PanTiltCam = new PanTiltSensorArray();
-                    string[] ctcp = new string[2];
-                    ctcp[0] = @"http://10.1.1.21";
-                    Devices.PanTiltCam.Load(Devices, DeviceType.PanTiltCamera, ctcp);
+                    ptcp[0] = @"http://10.1.1.21";
+                    Devices.PanTiltCombo.Load(Devices, DeviceType.PanTiltCameraDistCombo, ptcp);
 
                     Devices.SetTimerStatus(true);
                 }

@@ -18,23 +18,32 @@ using Windows.UI.Xaml.Navigation;
 
 namespace BerthaRemote.UserControls
 {
-    public sealed partial class PanTiltDistanceUserControl : UserControl
+    public sealed partial class PanTiltCameraDistanceUserControl : UserControl
     {
         MainViewModel mainViewModel => App.mainViewModel;
-        public PanTiltSensorArray device => App.mainViewModel.Devices.PanTiltDist;
+        public PanTiltSensorArray device => App.mainViewModel.Devices.PanTiltCombo;
 
-        public PanTiltDistanceUserControl()
+        public PanTiltCameraDistanceUserControl()
         {
             this.InitializeComponent();
+        }
+
+        private void connectCamera_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(cameraIP.Text))
+            {
+                if (!string.IsNullOrEmpty(cameraIP.Text))
+                {
+                    CameraWebView.Navigate(new Uri(cameraIP.Text));
+                }
+            }
         }
 
         private void tiltUp_Click(object sender, RoutedEventArgs e)
         {
             if (device != null)
             {
-                device.UpdateDistanceValue();
-                distanceTextBox.Text = device.Distance.ToString();
-                //device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
+                device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
             }
         }
 

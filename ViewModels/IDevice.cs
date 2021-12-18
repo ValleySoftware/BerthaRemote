@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Enumerations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace BerthaRemote.ViewModels
 {
-    public enum DeviceType { PanTiltBase, PanTiltCamera, PanTiltDistance, ManipulatorArm, TemperatureSensor, StaticMountCamera }
 
     public interface IDevice
     {

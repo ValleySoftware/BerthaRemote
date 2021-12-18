@@ -1,4 +1,5 @@
-﻿using Enumerations;
+﻿using BerthaRemote.Helpers;
+using Enumerations;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using System;
 using System.Collections.Generic;
@@ -66,9 +67,19 @@ namespace BerthaRemote.ViewModels
             {
                 var result = await _btDistanceCharacteristic.ReadValueAsync();
 
-                var cleaned = result.Replace("-", "");
-                var sp = cleaned.Split(Path.DirectorySeparatorChar);
-                Distance = Convert.ToInt32(sp[0]);
+                string cleaned = string.Empty;
+
+                if (result.Contains("-"))
+                {
+                    cleaned = result.Replace("-", "");
+                    var c = StaticHelpers.StringToByteArray(cleaned);
+                    Distance = Convert.ToInt32(c);
+                }
+                else
+                {
+                    var sp = result.Split(Path.DirectorySeparatorChar);
+                    Distance = Convert.ToInt32(sp[0]);
+                }
             }
             catch (Exception ex)
             {
@@ -98,7 +109,7 @@ namespace BerthaRemote.ViewModels
 
             try
             {
-                string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToBoolean(valueToSend))};
+                string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToInt32(valueToSend))};
                 string payload = string.Join("-", payLoadStringArray);
 
                 GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);

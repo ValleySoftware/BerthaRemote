@@ -59,10 +59,7 @@
                     <local:StaticCameraUserControl />
                 </Grid>
                 <Grid Grid.Row="1" >
-                    <local:PanTiltDistanceUserControl />
-                </Grid>
-                <Grid Grid.Row="2" >
-                    <local:PanTiltCameraUserControl />
+                    <local:PanTiltCameraDistanceUserControl />
                 </Grid>
             </Grid>
         </wui:ScrollViewer>

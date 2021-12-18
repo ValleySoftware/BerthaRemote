@@ -31,11 +31,13 @@ namespace BerthaRemote.UserControls
         {
             try
             {
-                device.UpdateDistanceValue();
 
-                if (Uri.CheckSchemeName(device.CameraIP))
+                if (!string.IsNullOrEmpty(device.CameraIP))
                 {
-                    CameraWebView.Navigate(new Uri(@"http://" + device.CameraIP));
+                    //Uri goTo = new Uri(@"http://" + device.CameraIP);
+                    Uri goTo = new Uri(device.CameraIP);
+                    //CameraWebView.Source=new Uri(@"http://" + device.CameraIP);
+                    CameraWebView.Navigate(goTo);
                 }
             }
             catch (Exception)

@@ -1,4 +1,5 @@
-﻿using MVVM;
+﻿using Enumerations;
+using MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;

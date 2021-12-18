@@ -11,6 +11,7 @@ namespace Enumerations
     public enum Direction { Forward, Backwards, TurnLeft, TurnRight, RotateLeft, RotateRight }
     public enum ServoMovementSpeed { Slow, Medium, Fast, Flank, Stop };
     //public enum speed { stop, slow, medium, fast };
+    public enum DeviceType { PanTiltBase, PanTiltCamera, PanTiltDistance, PanTiltCameraDistCombo, ManipulatorArm, TemperatureSensor, StaticMountCamera }
 
     public class Constants
     {    

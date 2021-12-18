@@ -47,7 +47,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="500" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -69,14 +69,16 @@
                 Margin="8"
                 HorizontalAlignment="Stretch"
                 Text="{x:Bind device.CameraIP, Mode=TwoWay}" />
-            <WebView
-                x:Name="CameraWebView"
-                Grid.Row="3"
-                Margin="8"
-                Width="320"
-                Height="240"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center" />
+            <Grid Grid.Row="3" BorderBrush="Blue" BorderThickness="2" Background="Wheat" >
+                <WebView 
+                    DefaultBackgroundColor="White"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+                    Source="http://www.google.com.au"
+                    x:Name="CameraWebView"
+                    Margin="8"/>
+            </Grid>
+            
             <wui:ToggleSwitch 
                 IsOn="{x:Bind device.LightsOn, Mode=TwoWay}"
                 Header="Headlights"

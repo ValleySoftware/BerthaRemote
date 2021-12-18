@@ -12,8 +12,7 @@ namespace BerthaRemote.ViewModels
 {
     public class DeviceListViewModel: ValleyBaseViewModel
     {
-        public PanTiltSensorArray PanTiltCam { get; set; }
-        public PanTiltSensorArray PanTiltDist { get; set; }
+        public PanTiltSensorArray PanTiltCombo { get; set; }
         public ForwardSensorArray ForwardDistance { get; set; }
 
         Timer updateDistances;
@@ -42,10 +41,10 @@ namespace BerthaRemote.ViewModels
                 {
                     ForwardDistance.UpdateDistanceValue();
                 }
-                if (PanTiltDist != null &&
-                    PanTiltDist.IsReady)
+                if (PanTiltCombo != null &&
+                    PanTiltCombo.IsReady)
                 {
-                    PanTiltDist.UpdateDistanceValue();
+                    PanTiltCombo.UpdateDistanceValue();
                 }
             });
         }
