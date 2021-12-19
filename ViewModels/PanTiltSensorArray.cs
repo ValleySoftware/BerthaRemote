@@ -21,6 +21,7 @@ namespace BerthaRemote.ViewModels
         private int _currentPan = 0;
         private int _currentTilt = 0;
         private double _distance = -1;
+        private readonly int ConversionOffset = 90;
 
         public override void Load(DeviceListViewModel parentList, DeviceType typeOfDevice, string[] parameters)
         {
@@ -132,7 +133,7 @@ namespace BerthaRemote.ViewModels
 
         private async void MoveToPosition(int newPan, int newTilt)
         {
-            string payload = 0 + "-" + CurrentPan + "-" + CurrentTilt + "-" + (int)ServoMovementSpeed.Flank;
+            string payload = 0 + "-" + (CurrentPan + ConversionOffset) + "-" + (CurrentTilt + ConversionOffset) + "-" + (int)ServoMovementSpeed.Flank;
             GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
         }
 
