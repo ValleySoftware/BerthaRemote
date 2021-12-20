@@ -38,6 +38,7 @@ namespace BerthaRemote.ViewModels
                 }
 
                 _btPanTiltCharacteristic = App.mainViewModel.charPanTilt;
+                UpdateCurrentPanTiltDisplayFromBLE();
                 _btSweepCharacteristic = App.mainViewModel.charPanSweep;
 
                 if ((typeOfDevice == DeviceType.PanTiltDistance) ||
@@ -55,6 +56,24 @@ namespace BerthaRemote.ViewModels
                 IsActive = true;
 
                 Thinking = false;
+            }
+        }
+
+        private async void UpdateCurrentPanTiltDisplayFromBLE()
+        {
+            var payload = await _btPanTiltCharacteristic.ReadValueAsync();
+            var sp = payload.Split("-");
+
+            if (sp.Count() >= 1)
+            {
+
+                int pan = Convert.ToInt32(sp[0]);
+                int tilt = Convert.ToInt32(sp[1]);
+
+                _currentPan = pan - 90;
+                OnPropertyChanged(nameof(CurrentPan));
+                _currentTilt = tilt - 90;
+                OnPropertyChanged(nameof(CurrentTilt));
             }
         }
 
@@ -88,7 +107,7 @@ namespace BerthaRemote.ViewModels
                         Distance = Convert.ToInt32(sp[0]);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
@@ -137,13 +156,13 @@ namespace BerthaRemote.ViewModels
             GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
         }
 
-        public async void AutoPan(ServoMovementSpeed speed)
+        public void AutoPan(ServoMovementSpeed speed)
         {
                 //string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)speed;
                 //GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);     
         }
 
-        public async void Stop()
+        public void Stop()
         {
             //string payload = ParentList.Items.IndexOf(this).ToString() + "-" + (int)ServoMovementSpeed.Stop;
             //GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btSweepCharacteristic, payload);

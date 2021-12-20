@@ -49,8 +49,8 @@ namespace BerthaRemote.ViewModels
         }
 
         private void Characteristic_ValueChanged(
-            Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic sender, 
-            Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs args)
+            GattCharacteristic sender, 
+            GattValueChangedEventArgs args)
         {
             UpdateDistanceValue();
         }
@@ -81,7 +81,7 @@ namespace BerthaRemote.ViewModels
                     Distance = Convert.ToInt32(sp[0]);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -105,7 +105,7 @@ namespace BerthaRemote.ViewModels
 
         private async Task<bool> SendLightBTMessage(bool valueToSend)
         {
-            bool sent = false;
+            bool sent;
 
             try
             {

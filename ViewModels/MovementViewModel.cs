@@ -123,8 +123,7 @@ namespace BerthaRemote.ViewModels
         public async Task<string> Move(Direction directionToMove, int movementPowerPercent)
         {
             var payload = string.Empty;
-            var sent = false;
-
+            bool sent;
             
 
             if (movementPowerPercent < 0 ||
