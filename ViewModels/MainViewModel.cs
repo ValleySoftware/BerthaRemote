@@ -17,6 +17,38 @@ using Enumerations;
 
 namespace BerthaRemote.ViewModels
 {
+    public class BleLogItem : ValleyBaseViewModel
+    {
+        string _characteristicName;
+        string _message;
+        DateTimeOffset _whenSent;
+
+        public BleLogItem(string characteristicName, string message, DateTimeOffset whenSent, bool sentOk)
+        {
+            _characteristicName = characteristicName;
+            _message = message;
+            _whenSent = whenSent;
+        }
+
+        public string CharacteristicName
+        {
+            get => _characteristicName;
+            set => SetProperty(ref _characteristicName, value);
+        }
+
+        public string Message
+        {
+            get => _message;
+            set => SetProperty(ref _message, value);
+        }
+        public DateTimeOffset WhenSent
+        {
+            get => _whenSent;
+            set => SetProperty(ref _whenSent, value);
+        }
+
+    }
+
     public class MainViewModel : ValleyBaseViewModel
     {
         private ObservableBluetoothLEDevice _currentDevice;
@@ -36,9 +68,11 @@ namespace BerthaRemote.ViewModels
         public ObservableGattCharacteristics charPanTiltDistance;
         public ObservableGattCharacteristics charLightsCharacteristic;
 
+        private ObservableCollection<BleLogItem> _bleMessageLog;
 
         public MainViewModel()
         {
+            _bleMessageLog = new ObservableCollection<BleLogItem>();
             bluetoothLEHelper.EnumerationCompleted += BluetoothLEHelper_EnumerationCompleted;
         }
 
@@ -65,6 +99,12 @@ namespace BerthaRemote.ViewModels
         public bool CountGreaterThanZero(ObservableCollection<ObservableGattDeviceService> toCheck)
         {
             return (toCheck != null && toCheck.Count() > 0);
+        }     
+
+        public ObservableCollection<BleLogItem> BleMsgLog
+        {
+            get => _bleMessageLog;
+            set => SetProperty(ref _bleMessageLog, value);
         }
 
         public ObservableGattCharacteristics CurrentCharacteristic
@@ -216,7 +256,7 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        public static async Task<GattCommunicationStatus> SendUtf8Message(ObservableGattCharacteristics sendTo, string message)
+        public async Task<GattCommunicationStatus> SendUtf8Message(ObservableGattCharacteristics sendTo, string message)
         {
             GattCommunicationStatus result = GattCommunicationStatus.AccessDenied;
 
@@ -232,11 +272,13 @@ namespace BerthaRemote.ViewModels
                         BinaryStringEncoding.Utf8);
                     result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
                     Console.WriteLine("BLE message sent");
+                    BleMsgLog.Add(new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, true));
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.WriteLine("BLE message error" + e.Message);
+                BleMsgLog.Add(new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, false));
             }
 
                 return result;

@@ -36,7 +36,7 @@ namespace BerthaRemote.UserControls
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await MainViewModel.SendUtf8Message(mainViewModel.CurrentCharacteristic, messageTextBox.Text);
+            await mainViewModel.SendUtf8Message(mainViewModel.CurrentCharacteristic, messageTextBox.Text);
         }
 
         private void connectToDeviceButton_Click(object sender, RoutedEventArgs e)

@@ -112,7 +112,7 @@ namespace BerthaRemote.ViewModels
                 string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToInt32(valueToSend))};
                 string payload = string.Join("-", payLoadStringArray);
 
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
+                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
 
                 sent = Constants.CommStatusToBool(sendResult);
             }

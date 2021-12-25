@@ -54,7 +54,7 @@ namespace BerthaRemote.ViewModels
                     payload = "0";
                 }
 
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_powerCharacteristic, payload);
+                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_powerCharacteristic, payload);
 
                 switch (sendResult)
                 {
@@ -80,7 +80,7 @@ namespace BerthaRemote.ViewModels
             {
                 string payload = "1";
 
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_stopCharacteristic, payload);
+                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_stopCharacteristic, payload);
 
                 switch (sendResult)
                 {
@@ -140,7 +140,7 @@ namespace BerthaRemote.ViewModels
                 string[] payLoadStringArray = { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(Duration) };
                 payload = string.Join("-", payLoadStringArray);
 
-                GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);
+                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);
 
                 sent = Constants.CommStatusToBool(sendResult);
             }

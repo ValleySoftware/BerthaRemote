@@ -153,7 +153,7 @@ namespace BerthaRemote.ViewModels
         private async void MoveToPosition(int newPan, int newTilt)
         {
             string payload = 0 + "-" + (CurrentPan + ConversionOffset) + "-" + (CurrentTilt + ConversionOffset) + "-" + (int)ServoMovementSpeed.Flank;
-            GattCommunicationStatus sendResult = await MainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
+            GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
         }
 
         public void AutoPan(ServoMovementSpeed speed)

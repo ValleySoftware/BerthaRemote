@@ -8,7 +8,7 @@
     xmlns:lottie="using:Microsoft.Toolkit.Uwp.UI.Lottie"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mui="using:Microsoft.UI.Xaml.Controls"
-    xmlns:wui="using:Windows.UI.Xaml.Controls"
+    xmlns:wui="using:Windows.UI.Xaml.Controls" xmlns:viewmodels="using:BerthaRemote.ViewModels"
     mc:Ignorable="d" Background="Transparent">
 
     <Grid
@@ -49,7 +49,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <wui:Button
@@ -133,6 +133,29 @@
                                 <Run Text="{x:Bind Name, Mode=OneWay}" />
                                 <Run Text=" - " />
                                 <Run Text="{x:Bind UUID, Mode=OneWay}" />
+                            </wui:TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </wui:ListView.ItemTemplate>
+            </wui:ListView>
+
+            <wui:ListView
+                x:Name="bleMessageList"
+                Grid.Row="4"
+                Margin="0,8"
+                Padding="8"
+                Header="BLE Log"
+                ItemsSource="{x:Bind mainViewModel.BleMsgLog, Mode=OneWay}"
+                SelectionMode="None">
+                <wui:ListView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:BleLogItem">
+                        <Grid>
+                            <wui:TextBlock >
+                                <Run Text="{x:Bind WhenSent, Mode=OneWay}" />
+                                <Run Text=" - " />
+                                <Run Text="{x:Bind CharacteristicName, Mode=OneWay}" />
+                                <Run Text=" - " />
+                                <Run Text="{x:Bind Message, Mode=OneWay}" />
                             </wui:TextBlock>
                         </Grid>
                     </DataTemplate>
