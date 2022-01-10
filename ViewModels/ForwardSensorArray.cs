@@ -114,7 +114,7 @@ namespace BerthaRemote.ViewModels
 
                 GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
 
-                sent = Constants.CommStatusToBool(sendResult);
+                sent = StaticHelpers.CommStatusToBool(sendResult);
             }
             catch (Exception)
             {

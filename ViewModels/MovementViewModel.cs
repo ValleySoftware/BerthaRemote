@@ -1,4 +1,5 @@
-﻿using Enumerations;
+﻿using BerthaRemote.Helpers;
+using Enumerations;
 using Microsoft.Toolkit.Uwp.Connectivity;
 using MVVM;
 using System;
@@ -142,7 +143,7 @@ namespace BerthaRemote.ViewModels
 
                 GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);
 
-                sent = Constants.CommStatusToBool(sendResult);
+                sent = StaticHelpers.CommStatusToBool(sendResult);
             }
             catch (Exception)
             {

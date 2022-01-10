@@ -12,7 +12,6 @@ using Microsoft.Toolkit.Uwp;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
-using Buffer = Windows.Storage.Streams.Buffer;
 using Enumerations;
 
 namespace BerthaRemote.ViewModels
@@ -217,14 +216,14 @@ namespace BerthaRemote.ViewModels
 
                 try
                 {
-                    charMove = CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(Constants.UUIDAdvancedMove));
-                    charPower = CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(Constants.UUIDPower));
-                    charStop = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDStop));
-                    charPanTilt = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTilt));
-                    charPanSweep = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanSweep));
-                    charForwardDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDForwardDistance));
-                    charPanTiltDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDPanTiltDistance));
-                    charLightsCharacteristic = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(Constants.UUIDLights));
+                    charMove = CurrentService.Characteristics.FirstOrDefault(m => m.UUID.Equals(BLEConstants.UUIDAdvancedMove));
+                    charPower = CurrentService.Characteristics.FirstOrDefault(p => p.UUID.Equals(BLEConstants.UUIDPower));
+                    charStop = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDStop));
+                    charPanTilt = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDPanTilt));
+                    charPanSweep = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDPanSweep));
+                    charForwardDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDForwardDistance));
+                    charPanTiltDistance = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDPanTiltDistance));
+                    charLightsCharacteristic = CurrentService.Characteristics.FirstOrDefault(s => s.UUID.Equals(BLEConstants.UUIDLights));
 
                     CommunicationsReady = true;
 
