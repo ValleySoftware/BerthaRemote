@@ -66,20 +66,7 @@ namespace BerthaRemote.ViewModels
             try
             {
                 var result = await _btDistanceCharacteristic.ReadValueAsync();
-
-                string cleaned = string.Empty;
-
-                if (result.Contains("-"))
-                {
-                    cleaned = result.Replace("-", "");
-                    var c = StaticHelpers.StringToByteArray(cleaned);
-                    Distance = Convert.ToInt32(c);
-                }
-                else
-                {
-                    var sp = result.Split(Path.DirectorySeparatorChar);
-                    Distance = Convert.ToInt32(sp[0]);
-                }
+                Distance = StaticHelpers.BLEStringToIntSafe(result);
             }
             catch (Exception)
             {

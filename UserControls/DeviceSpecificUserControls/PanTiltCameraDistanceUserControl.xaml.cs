@@ -38,21 +38,5 @@ namespace BerthaRemote.UserControls
                 }
             }
         }
-
-        private void tiltUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (device != null)
-            {
-                device.AutoPan(Enumerations.ServoMovementSpeed.Slow);
-            }
-        }
-
-        private void Stop_Click(object sender, RoutedEventArgs e)
-        {
-            if (device != null)
-            {
-                device.Stop();
-            }
-        }
     }
 }

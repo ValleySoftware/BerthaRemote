@@ -67,8 +67,8 @@ namespace BerthaRemote.ViewModels
             if (sp.Count() >= 1)
             {
 
-                int pan = Convert.ToInt32(sp[0]);
-                int tilt = Convert.ToInt32(sp[1]);
+                int pan = StaticHelpers.BLEStringToIntSafe(sp[0]);
+                int tilt = StaticHelpers.BLEStringToIntSafe(sp[1]);
 
                 _currentPan = pan - 90;
                 OnPropertyChanged(nameof(CurrentPan));
@@ -92,20 +92,7 @@ namespace BerthaRemote.ViewModels
                 try
                 {
                     var result = await _btDistanceCharacteristic.ReadValueAsync();
-
-                    string cleaned = string.Empty;
-
-                    if (result.Contains("-"))
-                    {
-                        cleaned = result.Replace("-", "");
-                        var c = StaticHelpers.StringToByteArray(cleaned);
-                        Distance = Convert.ToInt32(c);
-                    }
-                    else
-                    {
-                        var sp = result.Split(Path.DirectorySeparatorChar);
-                        Distance = Convert.ToInt32(sp[0]);
-                    }
+                    Distance = StaticHelpers.BLEStringToIntSafe(result);
                 }
                 catch (Exception)
                 {
@@ -133,7 +120,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentPan, value))
                 {
-                    MoveToPosition(value, CurrentTilt);
+                    //MoveToPosition(value, CurrentTilt);
                 }
             }
         }
@@ -145,7 +132,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentTilt, value))
                 {
-                    MoveToPosition(CurrentPan, value);
+                    //MoveToPosition(CurrentPan, value);
                 }
             }
         }
