@@ -1,4 +1,5 @@
 ﻿using BerthaRemote.ViewModels;
+using Enumerations;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,16 @@ namespace BerthaRemote.UserControls
             /*
             SetNumberBoxNumberFormatterQuarters(movementDurationEdit);
             SetNumberBoxNumberFormatterInts(powerEdit);*/
+        }
+
+        public int StopModeAsInt(MovementAutoStopMode stopMode)
+        {
+            return Convert.ToInt32(stopMode);
+        }
+
+        public void StopModeToInt(int indexer)
+        {
+            mainViewModel.Movement.StopMode = (MovementAutoStopMode)indexer;
         }
 
         private void SetNumberBoxNumberFormatterQuarters(NumberBox numberBoxToFormat)

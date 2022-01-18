@@ -13,6 +13,17 @@ namespace BerthaRemote.Helpers
 {
     public class StaticHelpers
     {
+        public static string GenerateRandomString()
+        {
+            string first10Chars = Path.GetRandomFileName();
+            first10Chars = first10Chars.Replace(".", ""); // Remove period.
+
+            string second10Chars = Path.GetRandomFileName();
+            second10Chars = second10Chars.Replace(".", ""); // Remove period.
+
+            return string.Concat(first10Chars.Substring(0, 5), second10Chars.Substring(0, 5));
+        }
+
         private static byte[] StringToByteArray(String hex)
         {
             int NumberChars = hex.Length;

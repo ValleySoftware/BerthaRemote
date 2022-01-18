@@ -14,6 +14,7 @@ namespace Enumerations
     public enum I2CExpanderChannel { sensorZero, fixedForwardDistance, periscopeDistance }
     public enum CharacteristicsNames { Stop, PanTilt, Power, AdvancedMove, PanSweep, ForwardDistance, PanTiltDistance, Lights, Logging };
     public enum DeviceType { PanTiltBase, PanTiltCamera, PanTiltDistance, PanTiltCameraDistCombo, ManipulatorArm, TemperatureSensor, StaticMountCamera }
+    public enum MovementAutoStopMode { None, Proximity, Timespan, Distance }
 
     public class BLEConstants
     {

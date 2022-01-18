@@ -20,6 +20,7 @@ namespace BerthaRemote.ViewModels
         private bool _isReady = false;
         public double MaxDuration { get => 10000; }
         public double MinDuration { get => 250; }
+        private MovementAutoStopMode _stopMode = MovementAutoStopMode.Timespan;
 
         public MovementViewModel()
         {
@@ -36,6 +37,12 @@ namespace BerthaRemote.ViewModels
         {
             get => _duration;
             set => SetProperty(ref _duration, value);
+        }
+
+        public MovementAutoStopMode StopMode
+        {
+            get => _stopMode;
+            set => SetProperty(ref _stopMode, value);
         }
 
         public async Task<bool> TogglePowerOn(bool toggleTo)
@@ -138,7 +145,17 @@ namespace BerthaRemote.ViewModels
 
             try
             {
-                string[] payLoadStringArray = { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(Duration) };
+                string[] payLoadStringArray = null;
+
+                if (StopMode == MovementAutoStopMode.Timespan)
+                {
+                    payLoadStringArray = new string[] { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), Convert.ToString(Duration) };
+                }
+                else
+                {
+                    payLoadStringArray = new string[] { Convert.ToString((int)directionToMove), Convert.ToString(movementPowerPercent), "0" };
+                }
+
                 payload = string.Join("-", payLoadStringArray);
 
                 GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_advancedMovementCharacteristic, payload);

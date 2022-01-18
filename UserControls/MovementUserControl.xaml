@@ -213,17 +213,32 @@
                 </Grid>
             </Frame>
 
-            <wui:Slider HorizontalAlignment="Stretch"
-                            Grid.Row="1"
-                            TickFrequency="250" 
-                            TickPlacement="Outside" 
-                            Orientation="Horizontal"
-                            SnapsTo="Ticks"
-                            Header="Duration (Milliseconds)"
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <wui:ComboBox SelectedIndex="{x:Bind StopModeAsInt(mainViewModel.Movement.StopMode), BindBack=StopModeToInt, Mode=TwoWay}"
+                              Header="Stop Mode">
+                    <wui:ComboBoxItem Content="None"/>
+                    <wui:ComboBoxItem Content="Proximity"/>
+                    <wui:ComboBoxItem Content="Timespan"/>
+                    <wui:ComboBoxItem Content="Distance"/>
+                </wui:ComboBox>
+
+                <wui:Slider HorizontalAlignment="Stretch"
+                    Grid.Row="1"
+                    TickFrequency="250" 
+                    TickPlacement="Outside" 
+                    Orientation="Horizontal"
+                    SnapsTo="Ticks"
+                    Header="Duration (Milliseconds)"
                     Minimum="{x:Bind mainViewModel.Movement.MinDuration, Mode=OneWay, FallbackValue=250}"
                     Maximum="{x:Bind mainViewModel.Movement.MaxDuration, Mode=OneWay, FallbackValue=10000}"
                     Value="{x:Bind mainViewModel.Movement.Duration, Mode=TwoWay}"
                     />
+            </Grid>
 
             <mui:NumberBox 
                 Grid.Row="2"

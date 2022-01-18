@@ -13,6 +13,7 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using Enumerations;
+using BerthaRemote.Helpers;
 
 namespace BerthaRemote.ViewModels
 {
@@ -264,6 +265,7 @@ namespace BerthaRemote.ViewModels
                 if (!string.IsNullOrEmpty(message) &&
                     sendTo != null)
                 {
+                    message = string.Concat(StaticHelpers.GenerateRandomString(), "-" ,message);
                     IBuffer writeBuffer = null;
                     Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
                     writeBuffer = CryptographicBuffer.ConvertStringToBinary(
@@ -271,13 +273,13 @@ namespace BerthaRemote.ViewModels
                         BinaryStringEncoding.Utf8);
                     result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
                     Console.WriteLine("BLE message sent");
-                    BleMsgLog.Add(new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, true));
+                    BleMsgLog.Insert(0, new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, true));
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("BLE message error" + e.Message);
-                BleMsgLog.Add(new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, false));
+                BleMsgLog.Insert(0, new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, false));
             }
 
                 return result;
