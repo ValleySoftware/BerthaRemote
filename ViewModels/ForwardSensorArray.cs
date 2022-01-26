@@ -97,7 +97,7 @@ namespace BerthaRemote.ViewModels
             try
             {
                 string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToInt32(valueToSend))};
-                string payload = string.Join("-", payLoadStringArray);
+                string payload = string.Join(BLEConstants.BLEMessageDivider, payLoadStringArray);
 
                 GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
 

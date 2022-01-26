@@ -23,6 +23,9 @@ namespace Enumerations
         public const string serviceName = "BerthaService";
         public const ushort serviceUuid = 41;
 
+        public const string BLEMessageDivider = "#";
+        public const string BLEHexDivider = "-";
+
         public const string UUIDStop = @"017e99d6-8a61-11eb-8dcd-0242ac1a5100";
         public const string UUIDPanTilt = @"017e99d6-8a61-11eb-8dcd-0242ac1a5102";
         public const string UUIDPower = @"017e99d6-8a61-11eb-8dcd-0242ac1a5103";

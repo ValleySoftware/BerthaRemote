@@ -18,8 +18,8 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
         private ObservableGattCharacteristics _btSweepCharacteristic;
         private ObservableGattCharacteristics _btDistanceCharacteristic;
-        private int _currentPan = 0;
-        private int _currentTilt = 0;
+        private int _currentPan = 50;
+        private int _currentTilt = 50;
         private double _distance = -1;
         private readonly int ConversionOffset = 90;
 
@@ -62,7 +62,7 @@ namespace BerthaRemote.ViewModels
         private async void UpdateCurrentPanTiltDisplayFromBLE()
         {
             var payload = await _btPanTiltCharacteristic.ReadValueAsync();
-            var sp = payload.Split("-");
+            var sp = payload.Split(BLEConstants.BLEHexDivider);
 
             if (sp.Count() >= 1)
             {
@@ -120,7 +120,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentPan, value))
                 {
-                    //MoveToPosition(value, CurrentTilt);
+                    MoveToPosition(value, CurrentTilt);
                 }
             }
         }
@@ -132,14 +132,14 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentTilt, value))
                 {
-                    //MoveToPosition(CurrentPan, value);
+                    MoveToPosition(CurrentPan, value);
                 }
             }
         }
 
         private async void MoveToPosition(int newPan, int newTilt)
         {
-            string payload = 0 + "-" + (CurrentPan + ConversionOffset) + "-" + (CurrentTilt + ConversionOffset) + "-" + (int)ServoMovementSpeed.Flank;
+            string payload = 0 + BLEConstants.BLEMessageDivider + (CurrentPan + ConversionOffset) + BLEConstants.BLEMessageDivider + (CurrentTilt + ConversionOffset) + BLEConstants.BLEMessageDivider + (int)ServoMovementSpeed.Flank;
             GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btPanTiltCharacteristic, payload);
         }
 

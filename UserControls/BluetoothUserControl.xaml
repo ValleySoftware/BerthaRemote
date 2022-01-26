@@ -149,12 +149,23 @@
                 SelectionMode="None">
                 <wui:ListView.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:BleLogItem">
-                        <Grid>
-                            <wui:TextBlock >
+                        <Grid BorderBrush="Silver"
+                              BorderThickness="0,1,0,0"
+                              Padding="4"
+                              Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <wui:TextBlock Grid.Row="0">
                                 <Run Text="{x:Bind WhenSent, Mode=OneWay}" />
-                                <Run Text=" - " />
+                            </wui:TextBlock>
+                            <wui:TextBlock Grid.Row="1">
                                 <Run Text="{x:Bind CharacteristicName, Mode=OneWay}" />
-                                <Run Text=" - " />
+                            </wui:TextBlock>
+                            <wui:TextBlock Grid.Row="2">
                                 <Run Text="{x:Bind Message, Mode=OneWay}" />
                             </wui:TextBlock>
                         </Grid>

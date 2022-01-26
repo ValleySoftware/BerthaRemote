@@ -265,7 +265,7 @@ namespace BerthaRemote.ViewModels
                 if (!string.IsNullOrEmpty(message) &&
                     sendTo != null)
                 {
-                    message = string.Concat(StaticHelpers.GenerateRandomString(), "-" ,message);
+                    message = string.Concat(StaticHelpers.GenerateRandomString(), BLEConstants.BLEMessageDivider, message);
                     IBuffer writeBuffer = null;
                     Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
                     writeBuffer = CryptographicBuffer.ConvertStringToBinary(
@@ -273,7 +273,7 @@ namespace BerthaRemote.ViewModels
                         BinaryStringEncoding.Utf8);
                     result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
                     Console.WriteLine("BLE message sent");
-                    BleMsgLog.Insert(0, new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, true));
+                    BleMsgLog.Insert(0, new BleLogItem(sendTo.UUID, message, DateTimeOffset.Now, true));
                 }
             }
             catch (Exception e)
