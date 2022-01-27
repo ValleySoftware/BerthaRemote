@@ -146,13 +146,21 @@
                 Padding="8"
                 Header="BLE Log"
                 ItemsSource="{x:Bind mainViewModel.BleMsgLog, Mode=OneWay}"
-                SelectionMode="None">
+                SelectionMode="Single">
+                <wui:ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding"  Value="0"/>
+                        <Setter Property="Margin"  Value="0"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment" Value="Top" />
+                    </Style>
+                </wui:ListView.ItemContainerStyle>
                 <wui:ListView.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:BleLogItem">
-                        <Grid BorderBrush="Silver"
-                              BorderThickness="0,1,0,0"
+                        <Grid BorderBrush="{x:Bind TransmissionStatusColour, Mode=OneWay}"
+                              BorderThickness="1"
                               Padding="4"
-                              Margin="0">
+                              Margin="0,2">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
@@ -160,16 +168,17 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             
-                            <wui:TextBlock Grid.Row="0" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
+                            <wui:TextBlock Grid.Row="0" >
                                 <Run Text="{x:Bind WhenSent, Mode=OneWay}" />
                             </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="1" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
+                            <wui:TextBlock Grid.Row="1" >
                                 <Run Text="{x:Bind Characteristic.UUID, Mode=OneWay}" />
                             </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="2" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
-                                <Run Text="{x:Bind TransmissionStatus, Mode=OneWay}" />
+                            <wui:TextBlock Grid.Row="2">
+                                <Run Text="{x:Bind TransmissionStatus, Mode=OneWay}"
+                                     Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}"/>
                             </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="3" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
+                            <wui:TextBlock Grid.Row="3">
                                 <Run Text="{x:Bind Message, Mode=OneWay}" />
                             </wui:TextBlock>
                         </Grid>

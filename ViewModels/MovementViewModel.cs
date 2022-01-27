@@ -62,16 +62,8 @@ namespace BerthaRemote.ViewModels
                     payload = "0";
                 }
 
-                GattCommunicationStatus sendResult = App.mainViewModel.AddMessageToQueue(_powerCharacteristic, payload);
-
-                switch (sendResult)
-                {
-                    case GattCommunicationStatus.AccessDenied: result = false; break;
-                    case GattCommunicationStatus.ProtocolError: result = false; break;
-                    case GattCommunicationStatus.Success: result = true; break;
-                    case GattCommunicationStatus.Unreachable: result = false; break;
-                    default: result = false; break;
-                }
+                var msg = App.mainViewModel.AddMessageToQueue(_powerCharacteristic, payload);                
+                result = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
             }
             catch (Exception)
             {
@@ -80,6 +72,7 @@ namespace BerthaRemote.ViewModels
 
             return result;
         }
+
         public async Task<bool> Stop()
         {
             var result = false;
@@ -88,16 +81,9 @@ namespace BerthaRemote.ViewModels
             {
                 string payload = "1";
 
-                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_stopCharacteristic, payload);
+                var msg = App.mainViewModel.AddMessageToQueue(_stopCharacteristic, payload);
+                result = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
 
-                switch (sendResult)
-                {
-                    case GattCommunicationStatus.AccessDenied: result = false; break;
-                    case GattCommunicationStatus.ProtocolError: result = false; break;
-                    case GattCommunicationStatus.Success: result = true; break;
-                    case GattCommunicationStatus.Unreachable: result = false; break;
-                    default: result = false; break;
-                }
             }
             catch (Exception)
             {
@@ -158,9 +144,8 @@ namespace BerthaRemote.ViewModels
 
                 payload = string.Join("-", payLoadStringArray);
 
-                GattCommunicationStatus sendResult = App.mainViewModel.AddMessageToQueue(_advancedMovementCharacteristic, payload);
-
-                sent = StaticHelpers.CommStatusToBool(sendResult);
+                var msg = App.mainViewModel.AddMessageToQueue(_advancedMovementCharacteristic, payload);
+                sent = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
             }
             catch (Exception)
             {

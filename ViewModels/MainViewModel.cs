@@ -51,19 +51,19 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        public Color TransmissionStatusColour
+        public Windows.UI.Xaml.Media.Brush TransmissionStatusColour
         {
             get
             {
                 switch (TransmissionStatus)
                 {
-                    case BLEMsgSendingStatus.Error: return Colors.Red;
-                    case BLEMsgSendingStatus.ReQueued: return Colors.Orange;
-                    case BLEMsgSendingStatus.InstantiatedOnly: return Colors.Gray;
-                    case BLEMsgSendingStatus.Queued: return Colors.Blue;
-                    case BLEMsgSendingStatus.InProgress: return Colors.Yellow;
-                    case BLEMsgSendingStatus.Success: return Colors.Green;
-                    default: return Colors.Gray;
+                    case BLEMsgSendingStatus.Error: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Red);
+                    case BLEMsgSendingStatus.ReQueued: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Orange);
+                    case BLEMsgSendingStatus.InstantiatedOnly: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Gray);
+                    case BLEMsgSendingStatus.Queued: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Blue);
+                    case BLEMsgSendingStatus.InProgress: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Yellow);
+                    case BLEMsgSendingStatus.Success: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Green);
+                    default: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Gray);
                 }
             }
         }

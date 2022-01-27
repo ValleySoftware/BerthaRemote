@@ -120,7 +120,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentPan, value))
                 {
-                    MoveToPosition(value, CurrentTilt);
+                    //MoveToPosition(value, CurrentTilt);
                 }
             }
         }
@@ -132,15 +132,17 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentTilt, value))
                 {
-                    MoveToPosition(CurrentPan, value);
+                    //MoveToPosition(CurrentPan, value);
                 }
             }
         }
 
-        private async void MoveToPosition(int newPan, int newTilt)
+        private void MoveToPosition(int newPan, int newTilt)
         {
             string payload = 0 + BLEConstants.BLEMessageDivider + (CurrentPan + ConversionOffset) + BLEConstants.BLEMessageDivider + (CurrentTilt + ConversionOffset) + BLEConstants.BLEMessageDivider + (int)ServoMovementSpeed.Flank;
-            GattCommunicationStatus sendResult = App.mainViewModel.AddMessageToQueue(_btPanTiltCharacteristic, payload);
+
+            var msg = App.mainViewModel.AddMessageToQueue(_btPanTiltCharacteristic, payload);
+            var result = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
         }
 
         public void AutoPan(ServoMovementSpeed speed)
