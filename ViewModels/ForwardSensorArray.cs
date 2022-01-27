@@ -99,9 +99,8 @@ namespace BerthaRemote.ViewModels
                 string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToInt32(valueToSend))};
                 string payload = string.Join(BLEConstants.BLEMessageDivider, payLoadStringArray);
 
-                GattCommunicationStatus sendResult = await App.mainViewModel.SendUtf8Message(_btLightsCharacteristic, payload);
-
-                sent = StaticHelpers.CommStatusToBool(sendResult);
+                var msg = App.mainViewModel.AddMessageToQueue(_btLightsCharacteristic, payload);
+                sent = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
             }
             catch (Exception)
             {

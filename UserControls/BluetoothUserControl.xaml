@@ -157,15 +157,19 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             
-                            <wui:TextBlock Grid.Row="0">
+                            <wui:TextBlock Grid.Row="0" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
                                 <Run Text="{x:Bind WhenSent, Mode=OneWay}" />
                             </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="1">
-                                <Run Text="{x:Bind CharacteristicName, Mode=OneWay}" />
+                            <wui:TextBlock Grid.Row="1" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
+                                <Run Text="{x:Bind Characteristic.UUID, Mode=OneWay}" />
                             </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="2">
+                            <wui:TextBlock Grid.Row="2" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
+                                <Run Text="{x:Bind TransmissionStatus, Mode=OneWay}" />
+                            </wui:TextBlock>
+                            <wui:TextBlock Grid.Row="3" Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}">
                                 <Run Text="{x:Bind Message, Mode=OneWay}" />
                             </wui:TextBlock>
                         </Grid>

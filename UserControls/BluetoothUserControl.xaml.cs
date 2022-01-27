@@ -34,9 +34,9 @@ namespace BerthaRemote.UserControls
             mainViewModel.ListAvailableBluetoothDevices();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            await mainViewModel.SendUtf8Message(mainViewModel.CurrentCharacteristic, messageTextBox.Text);
+            mainViewModel.AddMessageToQueue(mainViewModel.CurrentCharacteristic, messageTextBox.Text);
         }
 
         private void connectToDeviceButton_Click(object sender, RoutedEventArgs e)

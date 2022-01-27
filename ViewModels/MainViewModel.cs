@@ -14,37 +14,76 @@ using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using Enumerations;
 using BerthaRemote.Helpers;
+using Windows.UI;
 
 namespace BerthaRemote.ViewModels
 {
     public class BleLogItem : ValleyBaseViewModel
     {
-        string _characteristicName;
+        ObservableGattCharacteristics _characteristic;
         string _message;
-        DateTimeOffset _whenSent;
+        DateTimeOffset _whenQueued;
+        DateTimeOffset? _whenSent;
+        BLEMsgSendingStatus _transmissionStatus;
 
-        public BleLogItem(string characteristicName, string message, DateTimeOffset whenSent, bool sentOk)
+        public BleLogItem(ObservableGattCharacteristics characteristic, string message, DateTimeOffset whenQueued, DateTimeOffset? whenSent)
         {
-            _characteristicName = characteristicName;
+            _characteristic = characteristic;
             _message = message;
+            _whenQueued = whenQueued;
             _whenSent = whenSent;
+            _transmissionStatus = BLEMsgSendingStatus.InstantiatedOnly;
         }
 
-        public string CharacteristicName
+        public ObservableGattCharacteristics Characteristic
         {
-            get => _characteristicName;
-            set => SetProperty(ref _characteristicName, value);
+            get => _characteristic;
+            set => SetProperty(ref _characteristic, value);
         }
+
+        public BLEMsgSendingStatus TransmissionStatus
+        {
+            get => _transmissionStatus;
+            set
+            {
+                SetProperty(ref _transmissionStatus, value);
+                OnPropertyChanged(nameof(TransmissionStatusColour));
+            }
+        }
+
+        public Color TransmissionStatusColour
+        {
+            get
+            {
+                switch (TransmissionStatus)
+                {
+                    case BLEMsgSendingStatus.Error: return Colors.Red;
+                    case BLEMsgSendingStatus.ReQueued: return Colors.Orange;
+                    case BLEMsgSendingStatus.InstantiatedOnly: return Colors.Gray;
+                    case BLEMsgSendingStatus.Queued: return Colors.Blue;
+                    case BLEMsgSendingStatus.InProgress: return Colors.Yellow;
+                    case BLEMsgSendingStatus.Success: return Colors.Green;
+                    default: return Colors.Gray;
+                }
+            }
+        }
+        
 
         public string Message
         {
             get => _message;
             set => SetProperty(ref _message, value);
         }
-        public DateTimeOffset WhenSent
+
+        public DateTimeOffset? WhenSent
         {
             get => _whenSent;
             set => SetProperty(ref _whenSent, value);
+        }
+        public DateTimeOffset WhenQueued
+        {
+            get => _whenQueued;
+            set => SetProperty(ref _whenQueued, value);
         }
 
     }
@@ -69,6 +108,7 @@ namespace BerthaRemote.ViewModels
         public ObservableGattCharacteristics charLightsCharacteristic;
 
         private ObservableCollection<BleLogItem> _bleMessageLog;
+        private BleLogItem _currentBleMessage = null;
 
         public MainViewModel()
         {
@@ -105,6 +145,12 @@ namespace BerthaRemote.ViewModels
         {
             get => _bleMessageLog;
             set => SetProperty(ref _bleMessageLog, value);
+        }
+
+        public BleLogItem CurrentBleMessage
+        {
+            get => _currentBleMessage;
+            set => SetProperty(ref _currentBleMessage, value);
         }
 
         public ObservableGattCharacteristics CurrentCharacteristic
@@ -256,33 +302,117 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        public async Task<GattCommunicationStatus> SendUtf8Message(ObservableGattCharacteristics sendTo, string message)
+        public BleLogItem AddMessageToQueue(ObservableGattCharacteristics sendTo, string message)
         {
-            GattCommunicationStatus result = GattCommunicationStatus.AccessDenied;
+            BleLogItem newMsg = null;
 
             try
             {
-                if (!string.IsNullOrEmpty(message) &&
-                    sendTo != null)
-                {
-                    message = string.Concat(StaticHelpers.GenerateRandomString(), BLEConstants.BLEMessageDivider, message);
-                    IBuffer writeBuffer = null;
-                    Console.WriteLine("Attempting BLE message sending (UTF8) - " + message + " - to " + sendTo.UUID);
-                    writeBuffer = CryptographicBuffer.ConvertStringToBinary(
-                        message,
-                        BinaryStringEncoding.Utf8);
-                    result = await sendTo.Characteristic.WriteValueAsync(writeBuffer);
-                    Console.WriteLine("BLE message sent");
-                    BleMsgLog.Insert(0, new BleLogItem(sendTo.UUID, message, DateTimeOffset.Now, true));
-                }
+                newMsg = new BleLogItem(sendTo, message, DateTimeOffset.Now, null);
+
+                BleMsgLog.Insert(0, newMsg);
+                newMsg.TransmissionStatus = BLEMsgSendingStatus.Queued;
+
+                ScanBLELogForStuffToSend();
             }
             catch (Exception e)
             {
-                Console.WriteLine("BLE message error" + e.Message);
-                BleMsgLog.Insert(0, new BleLogItem(sendTo.Name, message, DateTimeOffset.Now, false));
+                Console.WriteLine("BLE add message to queue error" + e.Message);
             }
 
-                return result;
+            return newMsg;
+        }
+
+        private async void ScanBLELogForStuffToSend()
+        {
+            //Check the log exists
+            if (BleMsgLog != null && 
+                BleMsgLog.Count > 0)
+            {
+                //Is there no current message in the queue (Error or first message since boot)
+                //Set it and then continue in method.
+                if (CurrentBleMessage == null)
+                {
+                    SetCurrentBleMsgToLatestNotSentMsgInQueue();
+                }
+
+                // if the current isn't sent or sending
+                if (CurrentBleMessage.TransmissionStatus <= BLEMsgSendingStatus.InProgress)
+                {
+                    await BleSend(CurrentBleMessage);
+                    ScanBLELogForStuffToSend();
+                }
+
+            }
+
+        }
+
+        private void SetCurrentBleMsgToLatestNotSentMsgInQueue()
+        {
+            //Check the log exists
+            if (BleMsgLog != null &&
+                BleMsgLog.Count > 0)
+            {
+                if (CurrentBleMessage == null)
+                {
+                    CurrentBleMessage = BleMsgLog[BleMsgLog.Count - 1];
+                    return;
+                }
+
+                if (CurrentBleMessage != BleMsgLog[0])
+                {
+                    //Work from newest backwards, should be a shorter scan for long up times                    
+                    
+                    int i = 0;
+                    var element = BleMsgLog[i];
+
+                    while (element.TransmissionStatus < BLEMsgSendingStatus.InProgress)
+                    {
+                        try
+                        {
+                            i++;
+                            element = BleMsgLog[i];
+                        }
+                        catch (Exception)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        private async Task<bool> BleSend(BleLogItem message)
+        {
+            GattCommunicationStatus result = GattCommunicationStatus.AccessDenied;
+            message.TransmissionStatus = BLEMsgSendingStatus.InProgress;
+
+            try
+            {
+                IBuffer writeBuffer = null;
+                Console.WriteLine("Attempting BLE message sending (UTF8) - " + message.Message + " - to " + message.Characteristic.UUID);
+                writeBuffer = CryptographicBuffer.ConvertStringToBinary(
+                    message.Message,
+                    BinaryStringEncoding.Utf8);
+                result = await message.Characteristic.Characteristic.WriteValueAsync(writeBuffer);
+
+                if (result == GattCommunicationStatus.Success)
+                {
+                    message.WhenSent = DateTimeOffset.Now;
+                    message.TransmissionStatus = BLEMsgSendingStatus.Success;
+                    Console.WriteLine("BLE message sent");
+                }
+                else
+                {
+                    message.TransmissionStatus = BLEMsgSendingStatus.Error;
+                }
+            }
+            catch (Exception)
+            {
+                message.TransmissionStatus = BLEMsgSendingStatus.Error;
+            }
+
+            return result == GattCommunicationStatus.Success; 
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Enumerations
     public enum CharacteristicsNames { Stop, PanTilt, Power, AdvancedMove, PanSweep, ForwardDistance, PanTiltDistance, Lights, Logging };
     public enum DeviceType { PanTiltBase, PanTiltCamera, PanTiltDistance, PanTiltCameraDistCombo, ManipulatorArm, TemperatureSensor, StaticMountCamera }
     public enum MovementAutoStopMode { None, Proximity, Timespan, Distance }
+    public enum BLEMsgSendingStatus { InstantiatedOnly, Error, ReQueued, Queued, InProgress, Success }
 
     public class BLEConstants
     {
