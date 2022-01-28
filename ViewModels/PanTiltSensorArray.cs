@@ -120,7 +120,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentPan, value))
                 {
-                    //MoveToPosition(value, CurrentTilt);
+                    MoveToPosition(value, CurrentTilt);
                 }
             }
         }
@@ -132,7 +132,7 @@ namespace BerthaRemote.ViewModels
             {
                 if (SetProperty(ref _currentTilt, value))
                 {
-                    //MoveToPosition(CurrentPan, value);
+                    MoveToPosition(CurrentPan, value);
                 }
             }
         }
