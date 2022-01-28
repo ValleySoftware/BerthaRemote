@@ -166,21 +166,29 @@
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            
-                            <wui:TextBlock Grid.Row="0" >
-                                <Run Text="{x:Bind WhenSent, Mode=OneWay}" />
-                            </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="1" >
-                                <Run Text="{x:Bind Characteristic.UUID, Mode=OneWay}" />
-                            </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="2">
-                                <Run Text="{x:Bind TransmissionStatus, Mode=OneWay}"
-                                     Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}"/>
-                            </wui:TextBlock>
-                            <wui:TextBlock Grid.Row="3">
-                                <Run Text="{x:Bind Message, Mode=OneWay}" />
-                            </wui:TextBlock>
+
+                            <wui:TextBlock 
+                                Grid.Row="0"
+                                Text="{x:Bind UniqueIdentifier, Mode=OneWay}" />
+                            <wui:TextBlock 
+                                Grid.Row="1"
+                                Text="{x:Bind WhenQueued, Mode=OneWay}" />
+                            <wui:TextBlock 
+                                Grid.Row="2"
+                                Text="{x:Bind WhenSent, Mode=OneWay}" />
+                            <wui:TextBlock 
+                                Grid.Row="3" 
+                                Text="{x:Bind Characteristic.UUID, Mode=OneWay}" />
+                            <wui:TextBlock 
+                                Grid.Row="4"
+                                Text="{x:Bind TransmissionStatus, Mode=OneWay}"
+                                Foreground="{x:Bind TransmissionStatusColour, Mode=OneWay}"/>
+                            <wui:TextBlock 
+                                Grid.Row="5" 
+                                Text="{x:Bind Message, Mode=OneWay}" />
                         </Grid>
                     </DataTemplate>
                 </wui:ListView.ItemTemplate>

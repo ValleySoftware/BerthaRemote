@@ -22,6 +22,7 @@ namespace BerthaRemote.ViewModels
     {
         ObservableGattCharacteristics _characteristic;
         string _message;
+        string _uniqueIdentifier;
         DateTimeOffset _whenQueued;
         DateTimeOffset? _whenSent;
         BLEMsgSendingStatus _transmissionStatus;
@@ -33,6 +34,7 @@ namespace BerthaRemote.ViewModels
             _whenQueued = whenQueued;
             _whenSent = whenSent;
             _transmissionStatus = BLEMsgSendingStatus.InstantiatedOnly;
+            _uniqueIdentifier = StaticHelpers.GenerateRandomString();
         }
 
         public ObservableGattCharacteristics Characteristic
@@ -66,13 +68,18 @@ namespace BerthaRemote.ViewModels
                     default: return new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Gray);
                 }
             }
-        }
-        
+        }        
 
         public string Message
         {
             get => _message;
             set => SetProperty(ref _message, value);
+        }
+
+        public string UniqueIdentifier
+        {
+            get => _uniqueIdentifier;
+            set => SetProperty(ref _uniqueIdentifier, value);
         }
 
         public DateTimeOffset? WhenSent
@@ -331,7 +338,8 @@ namespace BerthaRemote.ViewModels
             {
                 //Is there no current message in the queue (Error or first message since boot)
                 //Set it and then continue in method.
-                if (CurrentBleMessage == null)
+                if (CurrentBleMessage == null ||
+                    CurrentBleMessage != BleMsgLog[0])
                 {
                     SetCurrentBleMsgToLatestNotSentMsgInQueue();
                 }
@@ -370,14 +378,16 @@ namespace BerthaRemote.ViewModels
                     {
                         try
                         {
+                            CurrentBleMessage = element;
                             i++;
                             element = BleMsgLog[i];
                         }
                         catch (Exception)
                         {
-                            return;
+                            
                         }
                     }
+
                 }
             }
         }
@@ -392,8 +402,8 @@ namespace BerthaRemote.ViewModels
                 IBuffer writeBuffer = null;
                 Console.WriteLine("Attempting BLE message sending (UTF8) - " + message.Message + " - to " + message.Characteristic.UUID);
                 writeBuffer = CryptographicBuffer.ConvertStringToBinary(
-                    message.Message,
-                    BinaryStringEncoding.Utf8);
+                    string.Concat(message.UniqueIdentifier, BLEConstants.BLEMessageDivider, message.Message),
+                    BinaryStringEncoding.Utf8); 
                 result = await message.Characteristic.Characteristic.WriteValueAsync(writeBuffer);
 
                 if (result == GattCommunicationStatus.Success)
