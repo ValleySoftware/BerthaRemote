@@ -121,6 +121,22 @@ namespace BerthaRemote.ViewModels
         {
             _bleMessageLog = new ObservableCollection<BleLogItem>();
             bluetoothLEHelper.EnumerationCompleted += BluetoothLEHelper_EnumerationCompleted;
+            bluetoothLEHelper.BluetoothLeDevices.CollectionChanged += BluetoothLeDevices_CollectionChanged;
+        }
+
+        private void BluetoothLeDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null &&
+                e.NewItems.Count > 0)
+            {
+                foreach (ObservableBluetoothLEDevice element in e.NewItems )
+                {
+                    if (element.Name.Equals(Enumerations.BLEConstants.definitionName))
+                    {
+                        ConnectToBTEDevice(element);
+                    }
+                }
+            }
         }
 
         public async void BluetoothLEHelper_EnumerationCompleted(object sender, EventArgs e)
@@ -236,7 +252,7 @@ namespace BerthaRemote.ViewModels
 
                         foreach (var element in CurrentDevice.Services)
                         {
-                            if (element.Name.Equals("41"))
+                            if (element.Name.Equals(Enumerations.BLEConstants.serviceUuid.ToString()))
                             {
                                 if (!CommunicationsReady)
                                 {

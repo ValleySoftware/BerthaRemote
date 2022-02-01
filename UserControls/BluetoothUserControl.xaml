@@ -49,7 +49,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
             </Grid.RowDefinitions>
 
             <wui:Button

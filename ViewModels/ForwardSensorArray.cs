@@ -90,24 +90,12 @@ namespace BerthaRemote.ViewModels
             }
         }
 
-        private async Task<bool> SendLightBTMessage(bool valueToSend)
+        private void SendLightBTMessage(bool valueToSend)
         {
-            bool sent;
+            string payload = 0 + BLEConstants.BLEMessageDivider + valueToSend ;
 
-            try
-            {
-                string[] payLoadStringArray = { Convert.ToString(0), Convert.ToString(Convert.ToInt32(valueToSend))};
-                string payload = string.Join(BLEConstants.BLEMessageDivider, payLoadStringArray);
-
-                var msg = App.mainViewModel.AddMessageToQueue(_btLightsCharacteristic, payload);
-                sent = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
-            }
-            catch (Exception)
-            {
-                sent = false;
-            }
-
-            return sent;
+            var msg = App.mainViewModel.AddMessageToQueue(_btLightsCharacteristic, payload);
+            _ = (msg.TransmissionStatus >= BLEMsgSendingStatus.InstantiatedOnly);
         }
     }
 }
