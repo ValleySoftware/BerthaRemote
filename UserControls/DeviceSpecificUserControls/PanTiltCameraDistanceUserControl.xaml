@@ -75,6 +75,7 @@
                 x:Name="CameraWebView"
                 Grid.Row="3"
                 Margin="8"
+                    x:Load="False"
                 DefaultBackgroundColor="WhiteSmoke"
                 VerticalAlignment="Center" />
             <Frame 

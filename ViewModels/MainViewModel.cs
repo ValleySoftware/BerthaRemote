@@ -431,11 +431,13 @@ namespace BerthaRemote.ViewModels
                 else
                 {
                     message.TransmissionStatus = BLEMsgSendingStatus.Error;
+                    Console.WriteLine("BLE message error");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 message.TransmissionStatus = BLEMsgSendingStatus.Error;
+                Console.WriteLine("BLE message exception " + e.Message);
             }
 
             return result == GattCommunicationStatus.Success; 
