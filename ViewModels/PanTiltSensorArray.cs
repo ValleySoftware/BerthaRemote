@@ -18,8 +18,8 @@ namespace BerthaRemote.ViewModels
         private ObservableGattCharacteristics _btPanTiltCharacteristic;
         private ObservableGattCharacteristics _btSweepCharacteristic;
         private ObservableGattCharacteristics _btDistanceCharacteristic;
-        private int _currentPan = 50;
-        private int _currentTilt = 50;
+        private int _currentPan = -68;
+        private int _currentTilt = -43;
         private double _distance = -1;
         private readonly int ConversionOffset = 90;
 

@@ -34,9 +34,15 @@ namespace BerthaRemote.UserControls
             {
                 if (!string.IsNullOrEmpty(cameraIP.Text))
                 {
-                    CameraWebView.Navigate(new Uri(cameraIP.Text));
+                    //CameraWebView.Navigate(new Uri(cameraIP.Text));
                 }
             }
+        }
+
+        private void panTiltActionExecuteButton_Click(object sender, RoutedEventArgs e)
+        {
+            device.CurrentPan = Convert.ToInt32(Math.Floor(Pan.Value));
+            device.CurrentTilt = Convert.ToInt32(Math.Floor(Tilt.Value));
         }
     }
 }

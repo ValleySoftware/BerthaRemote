@@ -37,7 +37,7 @@ namespace BerthaRemote.UserControls
                     //Uri goTo = new Uri(@"http://" + device.CameraIP);
                     Uri goTo = new Uri(device.CameraIP);
                     //CameraWebView.Source=new Uri(@"http://" + device.CameraIP);
-                    CameraWebView.Navigate(goTo);
+                    //CameraWebView.Navigate(goTo);
                 }
             }
             catch (Exception)
